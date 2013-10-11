@@ -1,4 +1,8 @@
-# Diamond Framework Draft
+#=======
+Diamond
+======= 
+
+#Diamond Framework Draft
 Diamond FrameworkはiOSアプリケーションの開発において頻発する様々なつらみを解決することを目的としたフレームワークです。ここでは、主にjsonを返すWeb-APIを利用したクライアントアプリケーションの問題を解決します。その草案を以下に記します。
 
 DiamondはRequest-Connection-Collection-Modelの４つのパーツから構成されます。
@@ -141,3 +145,4 @@ ReactiveCocoaはこのフレームワークに直接は関係しませんが、O
 	- section分けた時とかにだめになる
 - 集合でない
 	- 和集合、積集合、差集合...   
+
