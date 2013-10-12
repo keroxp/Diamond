@@ -10,10 +10,6 @@
 
 @interface DIACollection (NSArray)
 
-@end
-
-@interface DIACollection (NSArrayBase)
-
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
 
@@ -54,5 +50,6 @@
 - (NSArray *)sortedArrayWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
 
 #endif
+
 
 @end

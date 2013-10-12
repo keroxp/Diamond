@@ -26,7 +26,6 @@
 		A6CD5EDD1809689200D4F6AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6CD5ED41809689200D4F6AD /* InfoPlist.strings */; };
 		A6CD5EDE1809689200D4F6AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6CD5ED61809689200D4F6AD /* Images.xcassets */; };
 		A6CD5EDF1809689200D4F6AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6CD5ED71809689200D4F6AD /* main.m */; };
-		A6CD5EE218096CA900D4F6AD /* DIACollection+NSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A6CD5EE118096CA900D4F6AD /* DIACollection+NSArray.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +65,7 @@
 		A6CD5ED61809689200D4F6AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6CD5ED71809689200D4F6AD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A6CD5EE018096CA900D4F6AD /* DIACollection+NSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSArray.h"; sourceTree = "<group>"; };
-		A6CD5EE118096CA900D4F6AD /* DIACollection+NSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DIACollection+NSArray.m"; sourceTree = "<group>"; };
+		A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserverRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueObserverRegistration.h"; sourceTree = "<group>"; };
 		EBCFF9F63BCB43829C05D8E4 /* Pods-DiamondCollectionTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiamondCollectionTests.xcconfig"; path = "Pods/Pods-DiamondCollectionTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,10 +151,10 @@
 			children = (
 				A6CD5EC91809689200D4F6AD /* DIACollection.h */,
 				A6CD5ECA1809689200D4F6AD /* DIACollection.m */,
+				A6CD5EE018096CA900D4F6AD /* DIACollection+NSArray.h */,
+				A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserverRegistration.h */,
 				A67914D718098E3E0050EFB6 /* DIADelegateChain.h */,
 				A67914D818098E3E0050EFB6 /* DIADelegateChain.m */,
-				A6CD5EE018096CA900D4F6AD /* DIACollection+NSArray.h */,
-				A6CD5EE118096CA900D4F6AD /* DIACollection+NSArray.m */,
 			);
 			path = DiamondCollection;
 			sourceTree = "<group>";
@@ -315,7 +314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6CD5EDC1809689200D4F6AD /* DIAViewController.m in Sources */,
-				A6CD5EE218096CA900D4F6AD /* DIACollection+NSArray.m in Sources */,
 				A6CD5ED81809689200D4F6AD /* DIACollection.m in Sources */,
 				A6CD5EDF1809689200D4F6AD /* main.m in Sources */,
 				A6CD5EDA1809689200D4F6AD /* DIAAppDelegate.m in Sources */,
