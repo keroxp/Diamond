@@ -7,6 +7,10 @@
 //
 
 #import "DIACollection.h"
+#import "DIADelegateChain.h"
+#import "DIACollection+NSOrderedSet.h"
+#import "DIACollection+NSKeyValueObserving.h"
+#import "DIACollection+NSKeyValueCoding.h"
 
 #define kDiamondFrameworkErrorDomain @"me.keroxp.lib.Diamond"
 
@@ -18,17 +22,20 @@
 @interface DIACollection ()
 {
     // actual data
-    NSMutableArray *_actualData;
-    // data  temporally hidden.
-    NSMutableArray *_hiddenData;
+    NSMutableOrderedSet *_actualData;
     // data currently visible, that is, filterd, sorted and hidden.
-    NSMutableArray *_visibleData;
+    NSMutableOrderedSet *_visibleData;
+    // data  temporally hidden.
+    NSMutableOrderedSet *_hiddenObjects;
+    // data filted by predicates
+    NSMutableOrderedSet *_filterdObjects;
+    
     // NSDictionaries of pare of NSSortDescriptor and key.
-    NSMutableArray *_sortDescriptorsPare;
+    NSMutableArray *_sortDescriptors;
     // NSDictionaries of pare of NSPredicates and key.
-    NSMutableArray *_filterPredicatesPare;
-    // Observers for inner mutation. Indeed, an array of NSValue.
-    NSMutableArray *_observers;
+    NSMutableArray *_filterPredicaates;
+    // DeelegateChain object
+    DIADelegateChain *_delegate;
 }
 
 @end
@@ -52,12 +59,13 @@
 - (id)init
 {
     if (self = [super init]) {
-        _actualData = @[].mutableCopy;
-        _hiddenData = @[].mutableCopy;
-        _visibleData = @[].mutableCopy;
-        _sortDescriptorsPare = @[].mutableCopy;
-        _filterPredicatesPare = @[].mutableCopy;
-        _observers = @[].mutableCopy;
+        _actualData = [NSMutableOrderedSet new];
+        _hiddenObjects = [NSMutableOrderedSet new];
+        _filterdObjects = [NSMutableOrderedSet new];
+        _visibleData = [NSMutableOrderedSet new];
+        _sortDescriptors = [NSMutableArray new];
+        _filterPredicates = [NSMutableArray new];
+        _delegate = [DIADelegateChain new];
     }
     return self;
 }
@@ -75,9 +83,8 @@
 
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
-    // if missing method is a part of NSArray's instance,
-    // we delegate that selector to our _visibleData
-    if ([NSArray instancesRespondToSelector:aSelector]) {
+    // delegate specified NSArray's method
+    if ([NSOrderedSet instancesRespondToSelector:aSelector]) {
         return _visibleData;
     }
     return [super forwardingTargetForSelector:aSelector];
@@ -85,26 +92,42 @@
 
 #pragma mark - Adding Object
 
+- (NSUInteger)indexOfObjectToBeInsertedInSortedArray:(id)object
+{
+    NSUInteger idx = [_visibleData indexOfObject:object inSortedRange:NSMakeRange(0, _visibleData.count) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        for (NSSortDescriptor *s in _sortDescriptors) {
+            NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
+            if (r != NSOrderedSame) {
+                return r;
+            }
+        }
+        return NSOrderedSame;
+    }];
+    return idx;
+}
+
+- (BOOL)shouldFilterObject:(id)object
+{
+    // if inserted object matches any fileter predicate,
+    // return YES
+    for (NSPredicate *p in _filterPredicates) {
+        if ([p evaluateWithObject:object]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)addObject:(id)object
 {
     // add objectc to actual data
     [_actualData addObject:object];
-    
     // if have any sort description, try to insert correct position
-    if (_sortDescriptos.count > 0) {
-        NSUInteger idx = [_visibleData indexOfObject:object inSortedRange:NSMakeRange(0, _visibleData.count) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
-            for (NSSortDescriptor *s in _sortDescriptos) {
-                NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
-                if (r != NSOrderedSame) {
-                    return r;
-                }
-            }
-            return NSOrderedSame;
-        }];
-        [_visibleData insertObject:object atIndex:idx];
+    if ([self shouldFilterObject:object]) {
+        [_filterdObjects addObject:object];
     }else{
-        // else add to the last
-        [_visibleData addObject:object];
+        NSUInteger idx = [self indexOfObjectToBeInsertedInSortedArray:object];
+        [_visibleData insertObject:object atIndex:idx];
     }
 }
 
@@ -117,8 +140,14 @@
 
 - (void)pushObject:(id)object
 {
+    // append to actual data
     [_actualData addObject:object];
-    [_visibleData addObject:object];
+    // filter
+    if ([self shouldFilterObject:object]) {
+        [_filterdObjects addObject:object];
+    }else{
+        [_visibleData addObject:object];
+    }
 }
 
 - (void)pushObjectsFromArray:(NSArray *)array
@@ -128,12 +157,42 @@
     }
 }
 
+- (void)insertObject:(id)object atIndex:(NSUInteger)index
+{
+    // insert to actual data
+    [_actualData insertObject:object atIndex:index];
+    // filter
+    if ([self shouldFilterObject:object]) {
+        [_filterdObjects addObject:object];
+    }else{
+        [_visibleData insertObject:object atIndex:index];
+    }
+}
+
+- (void)insertObjects:(NSArray *)array atIndexes:(NSIndexSet *)indexes
+{
+    NSUInteger currentIndex = [indexes firstIndex];
+    NSUInteger i, count = [indexes count];
+    for (i = 0; i < count; i++) {
+        [self insertObject:array[i] atIndex:currentIndex];
+        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+    }
+}
+
 #pragma mark - Removing Object
 
 - (void)removeObject:(id)object
 {
     [_actualData removeObject:object];
     [_visibleData removeObject:object];
+    [_hiddenObjects removeObject:object];
+    [_filterdObjects removeObject:object];
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)index
+{
+    id obj = [_visibleData objectAtIndex:index];
+    [self removeObject:obj];
 }
 
 - (void)removeObjectsInArray:(NSArray *)array
@@ -145,7 +204,18 @@
 
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes
 {
-    
+    NSUInteger currentIndex = [indexes firstIndex];
+    NSUInteger i, count = [indexes count];
+    for (i = 0; i < count; i++) {
+        [self removeObjectAtIndex:currentIndex];
+        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+    }
+}
+
+- (void)removeObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
+{
+    NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:predicate];
+    [self removeObjectsAtIndexes:is];
 }
 
 #pragma mark - Moving Objects
@@ -171,41 +241,70 @@
 
 - (void)hideObject:(id)object
 {
-    
+    NSUInteger idx = [_visibleData indexOfObject:object];
+    id obj = [_visibleData objectAtIndex:idx];
+    [_visibleData removeObject:obj];
+    [_hiddenObjects addObject:obj];
 }
+
 - (void)hideObjectAtIndex:(NSUInteger)index
 {
-    
+    [self hideObject:[_visibleData objectAtIndex:index]];
 }
+
 - (void)hideObjectsAtIndexes:(NSIndexSet*)indexes
+{
+    NSUInteger currentIndex = [indexes firstIndex];
+    NSUInteger i, count = [indexes count];
+    for (i = 0; i < count; i++) {
+        [self hideObjectAtIndex:currentIndex];
+        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+    }
+}
+
+- (void)hideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
 {
     
 }
+
 - (void)unHideObject:(id)object
 {
     
 }
+
 - (void)unHideObjectAtIndex:(NSUInteger)index
 {
     
 }
+
 - (void)unHideObjectsAtIndexes:(NSIndexSet*)indexes
+{
+    
+}
+
+- (void)unHideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
 {
     
 }
 
 #pragma mark - Observing Inner Mutation
 
-- (void)addObserver:(id<DIACollectionMutationDelegate>)observer
+- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError *__autoreleasing *)error
 {
-    
+    [_delegate addDelegate:delegate error:error];
 }
-- (void)removeObserver:(id<DIACollectionMutationDelegate>)observer
+
+- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError *__autoreleasing *)error
 {
-    
+    [_delegate removeDelegate:delegate error:error];
 }
 
 #pragma mark - Sorting Objects
+
+- (void)sort
+{
+    
+}
 
 - (void)addSortDescriptor:(NSSortDescriptor*)sortDescriptor forKey:(id<NSCopying>)key
 {
@@ -243,60 +342,29 @@
     
 }
 
-#pragma mark - Counting Objects
-
-- (NSUInteger)actualCount
-{
-    return _actualData.count;
-}
 
 #pragma mark - Array Representation
 
 - (NSArray *)array
 {
-    return [NSArray arrayWithArray:_visibleData];
+    return [_visibleData array];
 }
 - (NSArray*)actualArray
 {
-    return [NSArray arrayWithArray:_actualData];
+    return [_actualData array];
 }
 
 #pragma mark - OrderedSet Representation
 
 - (NSOrderedSet *)orderedSet
 {
-    return [NSOrderedSet orderedSetWithArray:_visibleData];
+    return [NSOrderedSet orderedSetWithOrderedSet:_visibleData];
 }
 
 - (NSOrderedSet*)actualOrderedSet
 {
-    return [NSOrderedSet orderedSetWithArray:_actualData];
+    return [NSOrderedSet orderedSetWithOrderedSet:_actualData];
 }
 
-#pragma mark - NSCopying
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return nil;
-}
-
-#pragma mark - NSCoding
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    return nil;
-}
-
--  (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    
-}
-
-#pragma mark - NSFastEnumeration
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)len
-{
-    return 0;
-}
 
 @end

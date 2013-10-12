@@ -64,8 +64,9 @@
 		A6CD5ED51809689200D4F6AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6CD5ED61809689200D4F6AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6CD5ED71809689200D4F6AD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A6CD5EE018096CA900D4F6AD /* DIACollection+NSArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSArray.h"; sourceTree = "<group>"; };
-		A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserverRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueObserverRegistration.h"; sourceTree = "<group>"; };
+		A6CD5EE018096CA900D4F6AD /* DIACollection+NSOrderedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSOrderedSet.h"; sourceTree = "<group>"; };
+		A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueObserving.h"; sourceTree = "<group>"; };
+		A6FF3D491809C38F0071626B /* DIACollection+NSKeyValueCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueCoding.h"; sourceTree = "<group>"; };
 		EBCFF9F63BCB43829C05D8E4 /* Pods-DiamondCollectionTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiamondCollectionTests.xcconfig"; path = "Pods/Pods-DiamondCollectionTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,8 +152,9 @@
 			children = (
 				A6CD5EC91809689200D4F6AD /* DIACollection.h */,
 				A6CD5ECA1809689200D4F6AD /* DIACollection.m */,
-				A6CD5EE018096CA900D4F6AD /* DIACollection+NSArray.h */,
-				A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserverRegistration.h */,
+				A6CD5EE018096CA900D4F6AD /* DIACollection+NSOrderedSet.h */,
+				A6FF3D461809AC1E0071626B /* DIACollection+NSKeyValueObserving.h */,
+				A6FF3D491809C38F0071626B /* DIACollection+NSKeyValueCoding.h */,
 				A67914D718098E3E0050EFB6 /* DIADelegateChain.h */,
 				A67914D818098E3E0050EFB6 /* DIADelegateChain.m */,
 			);

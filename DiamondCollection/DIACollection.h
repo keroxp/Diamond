@@ -6,23 +6,14 @@
 //  Copyright (c) 2013年 Yusuke Sakurai. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+// DIACollection is kind of NSObject,
+// however, it behavirs almost same as NSOrderedSet with custom mutation mthods.
 
-@class DIAModel;
+#import <Foundation/Foundation.h>
 
 @protocol DIACollectionMutationDelegate;
 
-// A type of mutation which occured in the colletion
-// It is actually same as NSFetchResultChangeType.
-typedef enum : NSUInteger{
-    DIACollectionMutationTypeAdd,
-    DIACollectionMutationTypeRemove,
-    DIACollectionMutationTypeMove,
-    DIACollectionMutationTypeSort,
-    DIACollectionMutationTypeHidden
-}DIACollectionMutationType;
-
-@interface DIACollection : NSObject <NSCopying, NSSecureCoding, NSFastEnumeration>
+@interface DIACollection : NSObject
 
 /** Creating Collection */
 
@@ -31,7 +22,7 @@ typedef enum : NSUInteger{
 
 /** Adding Object */
 
-// add object to collection consistent with inner sort description.
+// add object to the collection consistent with inner sort description.
 - (void)addObject:(id)object;
 - (void)addObjectsFromArray:(NSArray*)array;
 // push object to the last location ignoring inner sort description.
@@ -39,12 +30,25 @@ typedef enum : NSUInteger{
 // you can solve it with -sort: method.
 - (void)pushObject:(id)object;
 - (void)pushObjectsFromArray:(NSArray*)array;
+// insert object to the collection at supecified index.
+// these also ignore inner sort descriptions.
+- (void)insertObject:(id)object atIndex:(NSUInteger)index;
+- (void)insertObjects:(NSArray*)array atIndexes:(NSIndexSet*)indexes;
 
 /** Removing Object */
 
+// remove object from visible range by using removeObjectAtIndex: with isEqual: method.
+// thus, we'll remove at most one object.
+// we will not remove second or thrid object with internal equality.
 - (void)removeObject:(id)object;
+// remove object at specified index
+- (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)removeObjectsInArray:(NSArray*)array;
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes;
+// remove all objects at specified indexes.
+// if you want to remove all objects with internal equality,use this
+// with "return [toBeRemoved isEqual:obj];" in block.
+- (void)removeObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
 
 /** Moving Objects  */
 
@@ -58,21 +62,26 @@ typedef enum : NSUInteger{
 - (void)hideObject:(id)object;
 - (void)hideObjectAtIndex:(NSUInteger)index;
 - (void)hideObjectsAtIndexes:(NSIndexSet*)indexes;
+- (void)hideObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
+
+/** Unhiding Objects */
+
 - (void)unHideObject:(id)object;
 - (void)unHideObjectAtIndex:(NSUInteger)index;
 - (void)unHideObjectsAtIndexes:(NSIndexSet*)indexes;
+- (void)unHideObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
 
 /** Observing Inner Mutation */
 
 // Add an observer object for the collection.
 // It must conform to DIACollectionMutationDelegate protocol
 // and will be refered weakly.
-// Collection doesn't have a strong reference to the observer.
+// Collection doesn't have a strong reference to the delegator.
 // You can add multiple observer from any other classes.
 // Collection points observer by wrapping NSValue+unretainedObjectValue.
-- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate;
+- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError**)error;
 // Remove the observer for the collection.
-- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate;
+- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError**)error;
 
 /** Sorting Objects */
 
@@ -105,8 +114,9 @@ typedef enum : NSUInteger{
 // Each observer conforms to DIACollectionMutationDelegate protocol.
 @property (nonatomic, readonly) NSArray *delegates;
 @property (nonatomic, readonly) NSArray *filterPredicates;
-@property (nonatomic, readonly) NSArray *sortDescriptos;
+@property (nonatomic, readonly) NSArray *sortDescriptors;
 @property (nonatomic, readonly) NSOrderedSet *hiddenObjects;
+@property (nonatomic, readonly) NSOrderedSet *filterdObjects;
 @property (nonatomic, copy)     NSString *sectionNameKeyPath;
 
 @end
@@ -125,3 +135,7 @@ typedef enum : NSUInteger{
 
 @end
 
+@interface DIACollection (NSArrayProtocol)
+<NSCopying, NSSecureCoding, NSFastEnumeration>
+
+@end
