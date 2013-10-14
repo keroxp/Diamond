@@ -100,6 +100,16 @@ describe(@"DIADelegateChain", ^{
             [[[[chain delegates] objectAtIndex:2] should] equal:[NSNull null]];
         });
     });
+    context(@"on execute delegate methods", ^{
+       it(@"is successfully published", ^{
+           // add NSArray (not NSObject)
+           for(NSUInteger i = 0;  i < 5; i++){
+               [chain addDelegate:[NSArray new] error:nil];
+           }
+           // call NSArray's Method
+           [[chain shouldNot] raiseWhenSent:@selector(count)];
+       });
+    });
 });
 
 SPEC_END

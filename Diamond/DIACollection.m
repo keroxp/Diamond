@@ -82,7 +82,7 @@
     return self;
 }
 
-#pragma mark - Meta Programming
+#pragma mark - Reflection
 
 - (id)forwardingTargetForSelector:(SEL)aSelector
 {
@@ -104,7 +104,8 @@
                 return r;
             }
         }
-        return NSOrderedSame;
+        // append
+        return NSOrderedAscending;
     }];
     return idx;
 }
