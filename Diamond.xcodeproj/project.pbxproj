@@ -555,7 +555,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -578,7 +578,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
