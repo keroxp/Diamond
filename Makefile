@@ -1,6 +1,5 @@
 WORKSPACE = Diamond.xcworkspace
 PROJECT = Diamond.xcodeproj
-TEST_TARGET = DiamondTest
 TEST_SCHEME = Diamond
 BUILD_TARGET = Diamond
 EXAMPLE_TARGET = DiamondExpample
@@ -17,7 +16,6 @@ test:
 		-workspace $(WORKSPACE) \
 		-scheme $(TEST_SCHEME) \
 		-sdk iphonesimulator \
-		-configuration Debug \
 		TEST_AFTER_BUILD=YES \
 		TEST_HOST=
 
@@ -26,7 +24,6 @@ test-with-coverage:
 		-workspace $(WORKSPACE) \
 		-scheme $(TEST_SCHEME) \
 			-sdk iphonesimulator \
-			-configuration Debug \
 			TEST_AFTER_BUILD=YES \
 			TEST_HOST= \
 			GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
