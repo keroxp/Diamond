@@ -27,13 +27,12 @@ describe(@"DiamondCollection", ^{
             [[collection should] beKindOfClass:[NSObject class]];
         });
         it(@"has completely same interface as NSArray", ^{
-            DIACollection *col = [[DIACollection alloc] init];
-            [[col shouldNot] raiseWithName:NSInvalidArgumentException whenSent:@selector(count)];
-            [[theValue([col count]) should] beZero];
+            [[collection shouldNot] raiseWithName:NSInvalidArgumentException whenSent:@selector(count)];
+            [[theValue([collection count]) should] beZero];
         });
     });
-    context(@"on Add", ^{
-        it(@"is possible to add a object", ^{
+    context(@"-add", ^{
+        it(@"Object:", ^{
            [collection addObject:@1];
            [collection addObject:@[]];
            [collection addObject:@{}];
@@ -43,16 +42,12 @@ describe(@"DiamondCollection", ^{
            }) should] raise];
            [collection addObject:[NSNull null]];
         });
-        it(@"is possible to add multiple objects", ^{
+        it(@"ObjectsFromArray:", ^{
             [collection addObjectsFromArray:array];
             [[theValue(collection.count) should] equal:theValue(5)];
         });
     });
     context(@"on Querying", ^{
-        it(@"retruns correct count of contents", ^{
-            [collection addObjectsFromArray:array];
-            [[theValue(collection.count) should] equal:theValue(5)];
-        });
         it(@"returns correct item", ^{
             [collection addObjectsFromArray:array];
             [[[collection objectAtIndex:2] should] equal:@2];
@@ -68,30 +63,38 @@ describe(@"DiamondCollection", ^{
             [[[collection lastObject] should] equal:@4];
         });
     });
-    context(@"on Remove", ^{
-        it(@"is possible to remove a object", ^{
+    context(@"-remove", ^{
+        it(@"Object:", ^{
            [collection addObjectsFromArray:array];
            [collection removeObject:@1];
            [[theValue(collection.count) should] equal:theValue(4)];
            [[theValue([collection indexOfObject:@1]) should] equal:theValue(NSNotFound)];
            [[collection[1] should] equal:@2];
         });
-        it(@"is possible to remove a object at index", ^{
+        it(@"ObjectAtIndex:", ^{
             [collection addObjectsFromArray:array];
             [collection removeObjectAtIndex:4];
             [[theValue(collection.count) should] equal:theValue(4)];
             [[theValue([collection indexOfObject:@4]) should] equal:theValue(NSNotFound)];
             [[collection[3] should] equal:@3];
         });
-        it(@"is possdible to remove multible objects", ^{
+        it(@"ObjectsInArray", ^{
             [collection addObjectsFromArray:array];
             [collection removeObjectsInArray:@[@1,@3,@4]];
             [[theValue(collection.count) should] equal:theValue(2)];
             NSOrderedSet *o = [NSOrderedSet orderedSetWithArray:@[@0,@2]];
             [[theValue([collection isEqualToOrderedSet:o]) should] equal:theValue(YES)];
         });
-        it(@"is possible to remove multiple obejcts at indexes", ^{
-            
+        it(@"ObjectsAtIndexes", ^{
+            [collection addObjectsFromArray:array];
+            NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];
+            [collection removeObjectsAtIndexes:is];
+            [[theValue(collection.count) should] equal:theValue(2)];
+            [[[collection firstObject] should] equal:@3];
+            [[[collection lastObject] should] equal:@4];
+        });
+        it(@"ObjectsPassingTest:", ^{
+            [collection addObjectsFromArray:array];
         });
     });
     

@@ -29,10 +29,7 @@ describe(@"DIADelegateChain", ^{
     // test adding delegate
     context(@"on add", ^{
         it(@"is possible to add new delegate", ^{
-            NSError *e =nil;
-            [chain addDelegate:dl1 error:&e];
-            // no error
-            [[e should] beNil];
+            [chain addDelegate:dl1];
             // return delegates array
             [[[chain delegates] shouldNot] beNil];
             // and is NSArray
@@ -46,23 +43,19 @@ describe(@"DIADelegateChain", ^{
     // test removing delegate
     context(@"on remove", ^{
         it(@"is possible to remove delegate", ^{
-            NSError *e =nil;
-            [chain removeDelegate:dl1 error:&e];
-            // no error
-            [[e should] beNil];
+            [chain removeDelegate:dl1];
             // has no delegate
             [[theValue([[chain delegates] count]) should] beZero];
         });
         it(@"is possible to add new delegate after removimg", ^{
-            NSError *e =nil;
             // and add new delegate
-            [chain addDelegate:dl2 error:&e];
+            [chain addDelegate:dl2];
             // is dl2
             [[[[chain delegates] objectAtIndex:0] should] equal:dl2];
             // is not dl1
             [[[[chain delegates] objectAtIndex:0] shouldNot] equal:dl1];
             // remove..
-            [chain removeDelegate:dl2 error:&e];
+            [chain removeDelegate:dl2];
         });
     });
     context(@"on adding delegats over maximum", ^{
@@ -72,14 +65,14 @@ describe(@"DIADelegateChain", ^{
             for(NSUInteger i = 0 ; i < 10 ; i++){
                 NSObject *dl = [NSObject new];
                 [dls addObject:dl];
-                [chain addDelegate:dl error:&e];
+                [chain addDelegate:dl];
                 [[e should] beNil];
             }
             for (NSUInteger i = 0; i < 10 ; i++){
                 [[dls[i] should] equal:chain.delegates[i]];
             }
             NSObject *over = [NSObject new];
-            [chain addDelegate:over error:&e];
+            [chain addDelegate:over];
             // memory space was correctly increased .
             [[theValue(chain.delegates.count) should] equal:theValue(11)];
             for(NSUInteger i = 0; i < chain.delegates.count - 1; i++){
@@ -89,11 +82,9 @@ describe(@"DIADelegateChain", ^{
     });
     context(@"on adding iregular objects", ^{
         it(@"is possible to add not NSObject", ^{
-            NSError *e = nil;
-            [chain addDelegate:@1 error:&e];
-            [chain addDelegate:@(YES) error:&e];
-            [chain addDelegate:[NSNull null] error:&e];
-            [[e should] beNil];
+            [chain addDelegate:@1];
+            [chain addDelegate:@(YES)];
+            [chain addDelegate:[NSNull null]];
             [[theValue(chain.delegates.count) should] equal:theValue(3)];
             [[[[chain delegates] objectAtIndex:0] should] equal:@1];
             [[[[chain delegates] objectAtIndex:1] should] equal:@(YES)];
@@ -104,10 +95,29 @@ describe(@"DIADelegateChain", ^{
        it(@"is successfully published", ^{
            // add NSArray (not NSObject)
            for(NSUInteger i = 0;  i < 5; i++){
-               [chain addDelegate:[NSArray new] error:nil];
+               [chain addDelegate:[NSArray new]];
            }
            // call NSArray's Method
            [[chain shouldNot] raiseWhenSent:@selector(count)];
+       });
+    });
+    context(@"on delegate dealloced", ^{
+       it(@"has no effect", ^{
+           NSArray *dl1 = @[@1];
+           NSArray *dl2 = @[@2];
+           NSArray *dl3 = @[@3];
+           [chain addDelegate:dl1];
+           [chain addDelegate:dl2];
+           [chain addDelegate:dl3];
+           [[theValue(chain.delegates.count) should] equal:theValue(3)];
+           [[theBlock(^{
+               [chain performSelector:@selector(count)];
+           }) shouldNot] raise];
+           dl1 = nil;
+           [[theBlock(^{
+               [[chain.delegates objectAtIndex:0] count];
+           }) shouldNot] raise];
+           [[theValue(chain.delegates.count) should] equal:theValue(3)];
        });
     });
 });

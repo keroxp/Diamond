@@ -19,6 +19,12 @@
 #define kDidChangeObjectNotification @"me.keroxp.lib.DiamonCollection:DidChangeObjectNotification"
 #define kDidChangeSectionNotification @"me.keroxp.lib.DiamonCollection:DidChangeSectionNotification"
 
+typedef enum : NSUInteger{
+    DIACollectionInnerStateVisible,
+    DIACollectionInnerStateHidden,
+    DIACollectionInnerStateFiltered,
+}DIACollectionInnerState;
+
 @interface DIACollection ()
 {
     // actual data
@@ -29,7 +35,8 @@
     NSMutableOrderedSet *_hiddenObjects;
     // data filted by predicates
     NSMutableOrderedSet *_filterdObjects;
-    
+    // inner states of containig object
+    NSMutableDictionary *_states;
     // NSDictionaries of pare of NSSortDescriptor and key.
     NSMutableArray *_sortDescriptors;
     // NSDictionaries of pare of NSPredicates and key.
@@ -193,15 +200,14 @@
 
 - (void)removeObjectsInArray:(NSArray *)array
 {
-    for (id obj in array) {
-        [self removeObject:obj];
-    }
+    [_actualData removeObjectsInArray:array];
+    [_visibleData removeObjectsInArray:array];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index
 {
-    id obj = [_visibleData objectAtIndex:index];
-    [self removeObject:obj];
+    [_visibleData removeObjectAtIndex:index];
+    [_actualData removeObjectAtIndex:index];
 }
 
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes
@@ -218,6 +224,14 @@
 {
     NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:predicate];
     [self removeObjectsAtIndexes:is];
+}
+
+- (void)removeAllObjects
+{
+    [_actualData removeAllObjects];
+    [_visibleData removeAllObjects];
+    [_filterdObjects removeAllObjects];
+    [_hiddenObjects removeAllObjects];
 }
 
 #pragma mark - Moving Objects
@@ -304,14 +318,14 @@
 
 #pragma mark - Observing Inner Mutation
 
-- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError *__autoreleasing *)error
+- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate
 {
-    [_delegate addDelegate:delegate error:error];
+    [_delegate addDelegate:delegate];
 }
 
-- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError *__autoreleasing *)error
+- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate
 {
-    [_delegate removeDelegate:delegate error:error];
+    [_delegate removeDelegate:delegate];
 }
 
 #pragma mark - Sorting Objects
@@ -381,5 +395,14 @@
     return [NSOrderedSet orderedSetWithOrderedSet:_actualData];
 }
 
+- (NSOrderedSet *)filteredOrderedSet
+{
+    return [NSOrderedSet orderedSetWithOrderedSet:_filterdObjects];
+}
+
+- (NSOrderedSet *)hiddenOrderedSet
+{
+    return [NSOrderedSet orderedSetWithOrderedSet:_hiddenObjects];
+}
 
 @end

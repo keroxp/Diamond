@@ -12,8 +12,8 @@
 
 @interface DIADelegateChain : NSObject
 
-- (void)addDelegate:(id)delegate error:(NSError**)error;
-- (void)removeDelegate:(id)delegate error:(NSError**)error;
+- (void)addDelegate:(id)delegate;
+- (void)removeDelegate:(id)delegate;
 - (NSArray*)delegates;
 
 @end

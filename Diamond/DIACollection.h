@@ -49,6 +49,8 @@
 // if you want to remove all objects with internal equality,use this
 // with "return [toBeRemoved isEqual:obj];" in block.
 - (void)removeObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
+// remove all objects from collection, including visible, actual, hidden, filterd range.
+- (void)removeAllObjects;
 
 /** Moving Objects  */
 
@@ -79,9 +81,9 @@
 // Collection doesn't have a strong reference to the delegator.
 // You can add multiple observer from any other classes.
 // Collection points observer by wrapping NSValue+unretainedObjectValue.
-- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError**)error;
+- (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate;
 // Remove the observer for the collection.
-- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate error:(NSError**)error;
+- (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate;
 
 /** Sorting Objects */
 
@@ -101,11 +103,13 @@
 /** Array Representation */
 
 - (NSArray *)array;
-- (NSArray*)actualArray;
+- (NSArray *)actualArray;
 
 /** OrderedSet Representation */
 
-- (NSOrderedSet*)actualOrderedSet;
+- (NSOrderedSet *)filteredOrderedSet;
+- (NSOrderedSet *)hiddenOrderedSet;
+- (NSOrderedSet *)actualOrderedSet;
 - (NSOrderedSet *)orderedSet;
 
 /** Properties */
@@ -115,8 +119,6 @@
 @property (nonatomic, readonly) NSArray *delegates;
 @property (nonatomic, readonly) NSArray *filterPredicates;
 @property (nonatomic, readonly) NSArray *sortDescriptors;
-@property (nonatomic, readonly) NSOrderedSet *hiddenObjects;
-@property (nonatomic, readonly) NSOrderedSet *filterdObjects;
 @property (nonatomic, copy)     NSString *sectionNameKeyPath;
 
 @end

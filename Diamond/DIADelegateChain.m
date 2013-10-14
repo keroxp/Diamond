@@ -35,13 +35,13 @@
     return self;
 }
 
-- (void)addDelegate:(id)delegate error:(NSError *__autoreleasing *)error
+- (void)addDelegate:(id)delegate
 {
     // hash string for pointer of delegate object
     NSString * hash;
     // if try to add nil, raise exception
     if(delegate == nil){
-        return [self _raiseError:error];
+        return ;
     }
     // increase memory space if needed
     if(_numberOfDelegates == _sizeOfDelegatesArray){
@@ -64,7 +64,7 @@
     _numberOfDelegates++;
 }
 
-- (void)removeDelegate:(id)delegate error:(NSError *__autoreleasing *)error
+- (void)removeDelegate:(id)delegate
 {
     
     if(delegate == nil || _numberOfDelegates == 0){
@@ -144,12 +144,6 @@
 {
     free(_delegates);
     _pointerHashes = nil;
-}
-
-- (void)_raiseError:(NSError*__autoreleasing *)error
-{
-    NSError *e = [NSError errorWithDomain:@"me.keroxp.lib.DiamondCollectoin" code:0 userInfo:nil];
-    *error = e;
 }
 
 - (void)_raiseException:(NSString*)reason

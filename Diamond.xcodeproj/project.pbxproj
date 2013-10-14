@@ -20,7 +20,7 @@
 		A6BE472C180BFD9A00C59C32 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E941809683300D4F6AD /* UIKit.framework */; };
 		A6BE472F180BFD9A00C59C32 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
 		A6BE4735180BFD9A00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4733180BFD9A00C59C32 /* InfoPlist.strings */; };
-		A6BE473E180BFE5900C59C32 /* DiamondCollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DiamondCollectionSpec.m */; };
+		A6BE473E180BFE5900C59C32 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
 		A6BE473F180BFE5E00C59C32 /* DIADelegateChainSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */; };
 		A6BE474E180C00A900C59C32 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
 		A6BE474F180C00B600C59C32 /* DIACollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46F5180BFD3F00C59C32 /* DIACollection.m */; };
@@ -104,7 +104,7 @@
 		A6BE4703180BFD3F00C59C32 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6BE4704180BFD3F00C59C32 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADelegateChainSpec.m; sourceTree = "<group>"; };
-		A6BE4707180BFD3F00C59C32 /* DiamondCollectionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiamondCollectionSpec.m; sourceTree = "<group>"; };
+		A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIACollectionSpec.m; sourceTree = "<group>"; };
 		A6BE470A180BFD3F00C59C32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6BE471C180BFD9A00C59C32 /* libDiamond.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDiamond.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BE4720180BFD9A00C59C32 /* Diamond-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Diamond-Prefix.pch"; sourceTree = "<group>"; };
@@ -248,7 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */,
-				A6BE4707180BFD3F00C59C32 /* DiamondCollectionSpec.m */,
+				A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */,
 				A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */,
 				A6BE4731180BFD9A00C59C32 /* Supporting Files */,
 			);
@@ -524,7 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6BE473F180BFE5E00C59C32 /* DIADelegateChainSpec.m in Sources */,
-				A6BE473E180BFE5900C59C32 /* DiamondCollectionSpec.m in Sources */,
+				A6BE473E180BFE5900C59C32 /* DIACollectionSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
