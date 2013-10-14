@@ -8,8 +8,9 @@
 
 #import <Kiwi.h>
 #import "DIACollection.h"
-#import "DIACollection+NSArray.h"
-#import "DIACollection+NSKeyValueObserverRegistration.h"
+#import "DIACollection+NSOrderedSet.h"
+#import "DIACollection+NSKeyValueObserving.h"
+#import "DIACollection+NSKeyValueCoding.h"
 #import <objc/runtime.h>
 
 

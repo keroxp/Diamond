@@ -4,14 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>DiamondCollection.xcscheme</key>
+		<key>Diamond.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>3</integer>
+		</dict>
+		<key>DiamondExample.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>A6BE471B180BFD9A00C59C32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A6BE4728180BFD9A00C59C32</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A6CD5E8C1809683300D4F6AD</key>
 		<dict>
 			<key>primary</key>

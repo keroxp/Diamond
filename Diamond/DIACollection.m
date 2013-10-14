@@ -59,12 +59,15 @@
 - (id)init
 {
     if (self = [super init]) {
+        // data store
         _actualData = [NSMutableOrderedSet new];
         _hiddenObjects = [NSMutableOrderedSet new];
         _filterdObjects = [NSMutableOrderedSet new];
         _visibleData = [NSMutableOrderedSet new];
+        // filters and sort descriptions
         _sortDescriptors = [NSMutableArray new];
         _filterPredicates = [NSMutableArray new];
+        // delegators chain
         _delegate = [DIADelegateChain new];
     }
     return self;
@@ -185,14 +188,6 @@
 {
     [_actualData removeObject:object];
     [_visibleData removeObject:object];
-    [_hiddenObjects removeObject:object];
-    [_filterdObjects removeObject:object];
-}
-
-- (void)removeObjectAtIndex:(NSUInteger)index
-{
-    id obj = [_visibleData objectAtIndex:index];
-    [self removeObject:obj];
 }
 
 - (void)removeObjectsInArray:(NSArray *)array
@@ -200,6 +195,12 @@
     for (id obj in array) {
         [self removeObject:obj];
     }
+}
+
+- (void)removeObjectAtIndex:(NSUInteger)index
+{
+    id obj = [_visibleData objectAtIndex:index];
+    [self removeObject:obj];
 }
 
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes
@@ -264,27 +265,40 @@
 
 - (void)hideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
 {
-    
+    NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:predicate];
+    [self hideObjectsAtIndexes:is];
 }
 
 - (void)unHideObject:(id)object
 {
-    
+    NSUInteger idx = [_hiddenObjects indexOfObject:object];
+    [self unHideObjectAtIndex:idx]  ;
+    if (idx != NSNotFound) {
+        [_hiddenObjects removeObjectAtIndex:idx];
+        [self addObject:object];
+    }
 }
 
 - (void)unHideObjectAtIndex:(NSUInteger)index
 {
-    
+    [self unHideObject:[_hiddenObjects objectAtIndex:index]];
 }
 
 - (void)unHideObjectsAtIndexes:(NSIndexSet*)indexes
 {
-    
+    NSUInteger currentIndex = [indexes firstIndex];
+    NSUInteger i, count = [indexes count];
+    for (i = 0; i < count; i++) {
+        [self unHideObjectAtIndex:currentIndex];
+        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+    }
 }
+                    
 
 - (void)unHideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
 {
-    
+    NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:predicate];
+    [self unHideObjectsAtIndexes:is];
 }
 
 #pragma mark - Observing Inner Mutation
