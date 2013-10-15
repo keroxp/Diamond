@@ -56,8 +56,16 @@
 
 - (void)moveObject:(id)object beforeObject:(id)beforeObject;
 - (void)moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+
+/** Exchange Objects */
+
 - (void)exchangeObject:(id)obj1 WithObject:(id)obj2;
 - (void)exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2;
+
+/** Replacing Objects */
+
+- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)object;
+- (void)replaceObjectsAtIndexes:(NSIndexSet*)indexes withObjects:(NSArray *)objects;
 
 /** Hiding Object */
 
@@ -123,21 +131,66 @@
 
 @end
 
+typedef enum : NSUInteger{
+    DIACollectionMutationTypeInsert,
+    DIACollectionMutationTypeDelete,
+    DIACollectionMutationTypeMove,
+    DIACollectionMutationTypeExchange,
+    DIACollectionMutationTypeReplace,
+    DIACollectionMutationTypeUpdate
+}DIACollectionMutationType;
+
 @protocol DIACollectionMutationDelegate <NSObject>
 
 - (void)collectionWillChangeContent:(DIACollection*)collection;
-- (void)collection:(DIACollection*)collection didAddObject:(id)object;
-- (void)collection:(DIACollection*)collection didRemoveObject:(id)object;
-- (void)collection:(DIACollection*)collection didHideObject:(id)object;
-- (void)collection:(DIACollection*)collection didUnHideObject:(id)object;
-- (void)collection:(DIACollection*)collection didMoveObject:(id)object fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
-- (void)collection:(DIACollection *)collection didExchangeObject:(id)obj1 withObject:(id)obj2;
+- (void)collection:(DIACollection*)collection didChagneObject:(id)object atIndex:(NSUInteger)index forChangeType:(DIACollectionMutationType)changeType newIndex:(NSUInteger)newIndex newObject:(id)newObject;
 - (void)collection:(DIACollection *)collection didChangeSortingWithSortDescriptros:(NSArray*)sortDescriptors;
 - (void)collectioDidChangeContent:(DIACollection*)collection;
 
 @end
 
-@interface DIACollection (NSArrayProtocol)
+@interface DIACollection (NSOrderedSetProtocol)
 <NSCopying, NSSecureCoding, NSFastEnumeration>
+
+@end
+
+@interface DIACollectionSection : NSObject
+
+@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *indexTitle;
+@property (nonatomic, readonly) NSRange range;
+
+@end
+
+@interface DIACollection (UITableViewDataSource)
+
+@property (nonatomic, copy) NSString *sectionNameKeyPath;
+
+// Querying object for spesified index path
+// if not set sectionNameKeyPath property, always returns nil
+- (id)objectAtIndexPath:(NSIndexPath*)indexPath;
+- (NSIndexPath*)indexPathForObject:(id)object;
+- (NSArray*)sections;
+- (NSUInteger)sectionForSectionIndexTitle:(NSString*)title atIndex:(NSUInteger)sectionIndex;
+
+- (void)insertSectionWithName:(NSString*)name toIndex:(NSUInteger)index withObects:(NSArray*)objects;
+
+- (void)deleteSectionsAtIndexes:(NSIndexSet*)indexes;
+- (void)hideSectionsAtIndexes:(NSIndexSet*)indexes;
+
+@end
+
+@protocol DIACollectionTableViewMutationDelegate <NSObject>
+
+- (void)collection:(DIACollection*)collection
+   didChangeObject:(id)object
+       atIndexPath:(NSIndexPath*)indexPath
+     forChangeType:(DIACollectionMutationType)changeType
+      newIndexPath:(NSIndexPath*)newIndexPath
+         newObject:(id)newObject;
+
+- (void)collection:(DIACollection *)collection
+  didChangeSection:(NSUInteger)section
+     forChangeType:(DIACollectionMutationType)changeType;
 
 @end

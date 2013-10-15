@@ -78,23 +78,60 @@ describe(@"DiamondCollection", ^{
             [[theValue([collection indexOfObject:@4]) should] equal:theValue(NSNotFound)];
             [[collection[3] should] equal:@3];
         });
-        it(@"ObjectsInArray", ^{
+        it(@"ObjectsInArray:", ^{
             [collection addObjectsFromArray:array];
             [collection removeObjectsInArray:@[@1,@3,@4]];
             [[theValue(collection.count) should] equal:theValue(2)];
             NSOrderedSet *o = [NSOrderedSet orderedSetWithArray:@[@0,@2]];
             [[theValue([collection isEqualToOrderedSet:o]) should] equal:theValue(YES)];
         });
-        it(@"ObjectsAtIndexes", ^{
+        it(@"ObjectsAtIndexes: 1", ^{
             [collection addObjectsFromArray:array];
+            // 0,1,2,3,4 => 3,4
             NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];
             [collection removeObjectsAtIndexes:is];
             [[theValue(collection.count) should] equal:theValue(2)];
             [[[collection firstObject] should] equal:@3];
             [[[collection lastObject] should] equal:@4];
         });
+        it(@"ObjectsAtIndexes: 2", ^{
+            // 0,1,2,3,4 => 0,1
+            [collection addObjectsFromArray:array];
+            NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 3)];
+            [collection removeObjectsAtIndexes:is];
+            [[theValue(collection.count) should] equal:theValue(2)];
+            [[[collection firstObject] should] equal:@0];
+            [[[collection lastObject] should] equal:@1];
+        });
+        it(@"ObjectsAtIndexes: 3", ^{
+            // 0,1,2,3,4 =? 1,3,4
+            [collection addObjectsFromArray:array];
+            NSMutableIndexSet *mis = [NSMutableIndexSet indexSet];
+            [mis addIndex:0];
+            [mis addIndex:2];
+            [[theBlock(^{
+                [collection removeObjectsAtIndexes:mis];
+            }) shouldNot] raise];
+            [[theValue(collection.count) should] equal:theValue(3)];
+            [[collection[0] should] equal:@1];
+            [[collection[1] should] equal:@3];
+            [[collection[2] should] equal:@4];
+        });
         it(@"ObjectsPassingTest:", ^{
             [collection addObjectsFromArray:array];
+            [collection removeObjectsPassingTest:^BOOL(NSNumber *obj, NSUInteger idx, BOOL *stop) {
+                // remove even numbers
+                return (obj.unsignedIntegerValue%2 == 0);
+            }];
+            [[theValue(collection.count) should] equal:theValue(2)];
+            NSOrderedSet *os = [NSOrderedSet orderedSetWithArray:@[@1,@3]];
+            [[theValue([collection isEqualToOrderedSet:os]) should] equal:theValue(YES)];
+        });
+        it(@"AllObjects", ^{
+            [collection addObjectsFromArray:array];
+            [[theValue(collection.count) should] equal:theValue(5)];
+            [collection removeAllObjects];
+            [[theValue(collection.count) should] equal:theValue(0)];
         });
     });
     

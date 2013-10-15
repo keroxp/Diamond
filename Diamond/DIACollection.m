@@ -19,12 +19,6 @@
 #define kDidChangeObjectNotification @"me.keroxp.lib.DiamonCollection:DidChangeObjectNotification"
 #define kDidChangeSectionNotification @"me.keroxp.lib.DiamonCollection:DidChangeSectionNotification"
 
-typedef enum : NSUInteger{
-    DIACollectionInnerStateVisible,
-    DIACollectionInnerStateHidden,
-    DIACollectionInnerStateFiltered,
-}DIACollectionInnerState;
-
 @interface DIACollection ()
 {
     // actual data
@@ -35,8 +29,7 @@ typedef enum : NSUInteger{
     NSMutableOrderedSet *_hiddenObjects;
     // data filted by predicates
     NSMutableOrderedSet *_filterdObjects;
-    // inner states of containig object
-    NSMutableDictionary *_states;
+    
     // NSDictionaries of pare of NSSortDescriptor and key.
     NSMutableArray *_sortDescriptors;
     // NSDictionaries of pare of NSPredicates and key.
@@ -100,9 +93,35 @@ typedef enum : NSUInteger{
     return [super forwardingTargetForSelector:aSelector];
 }
 
+#pragma mark - Notification
+
+- (void)_notifyChangeOfObject:(id)object
+                      atIndex:(NSUInteger)index
+                forChangeType:(DIACollectionMutationType)changeType
+                     newIndex:(NSUInteger)newIndex
+                    newObject:(id)newObject
+                 isSortChange:(BOOL)sortChange
+{
+    if ([_delegate respondsToSelector:@selector(collectionWillChangeContent:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegate collectionWillChangeContent:self];
+    }
+    if (sortChange) {
+        if ([_delegate respondsToSelector:@selector(collection:didChangeSortingWithSortDescriptros:)]) {
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeSortingWithSortDescriptros:_sortDescriptors];
+        }
+    }else{
+        if ([_delegate respondsToSelector:@selector(collection:didChagneObject:atIndex:forChangeType:newIndex:newObject:)]) {
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChagneObject:object atIndex:index forChangeType:changeType newIndex:newIndex newObject:newObject];
+        }
+    }
+    if ([_delegate respondsToSelector:@selector(collectioDidChangeContent:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegate collectioDidChangeContent:self];
+    }
+}
+
 #pragma mark - Adding Object
 
-- (NSUInteger)indexOfObjectToBeInsertedInSortedArray:(id)object
+- (NSUInteger)_indexOfObjectToBeInsertedInSortedArray:(id)object
 {
     NSUInteger idx = [_visibleData indexOfObject:object inSortedRange:NSMakeRange(0, _visibleData.count) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
         for (NSSortDescriptor *s in _sortDescriptors) {
@@ -117,7 +136,7 @@ typedef enum : NSUInteger{
     return idx;
 }
 
-- (BOOL)shouldFilterObject:(id)object
+- (BOOL)_shouldFilterObject:(id)object
 {
     // if inserted object matches any fileter predicate,
     // return YES
@@ -134,10 +153,10 @@ typedef enum : NSUInteger{
     // add objectc to actual data
     [_actualData addObject:object];
     // if have any sort description, try to insert correct position
-    if ([self shouldFilterObject:object]) {
+    if ([self _shouldFilterObject:object]) {
         [_filterdObjects addObject:object];
     }else{
-        NSUInteger idx = [self indexOfObjectToBeInsertedInSortedArray:object];
+        NSUInteger idx = [self _indexOfObjectToBeInsertedInSortedArray:object];
         [_visibleData insertObject:object atIndex:idx];
     }
 }
@@ -154,7 +173,7 @@ typedef enum : NSUInteger{
     // append to actual data
     [_actualData addObject:object];
     // filter
-    if ([self shouldFilterObject:object]) {
+    if ([self _shouldFilterObject:object]) {
         [_filterdObjects addObject:object];
     }else{
         [_visibleData addObject:object];
@@ -173,7 +192,7 @@ typedef enum : NSUInteger{
     // insert to actual data
     [_actualData insertObject:object atIndex:index];
     // filter
-    if ([self shouldFilterObject:object]) {
+    if ([self _shouldFilterObject:object]) {
         [_filterdObjects addObject:object];
     }else{
         [_visibleData insertObject:object atIndex:index];
@@ -200,8 +219,9 @@ typedef enum : NSUInteger{
 
 - (void)removeObjectsInArray:(NSArray *)array
 {
-    [_actualData removeObjectsInArray:array];
-    [_visibleData removeObjectsInArray:array];
+    for (id obj in array) {
+        [self removeObject:obj];
+    }
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index
@@ -215,7 +235,8 @@ typedef enum : NSUInteger{
     NSUInteger currentIndex = [indexes firstIndex];
     NSUInteger i, count = [indexes count];
     for (i = 0; i < count; i++) {
-        [self removeObjectAtIndex:currentIndex];
+        // decrement for shifting
+        [self removeObjectAtIndex:currentIndex-i];
         currentIndex = [indexes indexGreaterThanIndex:currentIndex];
     }
 }
@@ -226,7 +247,7 @@ typedef enum : NSUInteger{
     [self removeObjectsAtIndexes:is];
 }
 
-- (void)removeAllObjects
+-(void)removeAllObjects
 {
     [_actualData removeAllObjects];
     [_visibleData removeAllObjects];
@@ -253,6 +274,18 @@ typedef enum : NSUInteger{
     
 }
 
+#pragma mark - Replaceing Object
+
+- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)object
+{
+    
+}
+
+- (void)replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray *)objects
+{
+    
+}
+
 #pragma mark - Hiding Object
 
 - (void)hideObject:(id)object
@@ -273,7 +306,8 @@ typedef enum : NSUInteger{
     NSUInteger currentIndex = [indexes firstIndex];
     NSUInteger i, count = [indexes count];
     for (i = 0; i < count; i++) {
-        [self hideObjectAtIndex:currentIndex];
+        // decrement for shifting
+        [self hideObjectAtIndex:currentIndex-i];
         currentIndex = [indexes indexGreaterThanIndex:currentIndex];
     }
 }
