@@ -13,6 +13,19 @@
 
 @protocol DIACollectionMutationDelegate;
 
+typedef enum : NSUInteger {
+    DIACollectionMutationReasonNone = 0,
+    DIACollectionMutationReasonAdd = 100,
+    DIACollectionMutationReasonPush,
+    DIACollectionMutationReasonInsert,
+    DIACollectionMutationReasonUnHidden,
+    DIACollectionMutationReasonRemove = 200,
+    DIACollectionMutationReasonFiltered,
+    DIACollectionMutationReasonHidden,
+    DIACollectionMutationReasonReplace = 300,
+    DIACollectionMutationReasonExchange
+}DIACollectionMutationReason;
+
 @interface DIACollection : NSObject
 
 /** Creating Collection */
@@ -37,12 +50,10 @@
 
 /** Removing Object */
 
-// remove object from visible range by using removeObjectAtIndex: with isEqual: method.
-// thus, we'll remove at most one object.
-// we will not remove second or thrid object with internal equality.
-- (void)removeObject:(id)object;
-// remove object at specified index
+// remove object at specified index of visible range, and actual data
 - (void)removeObjectAtIndex:(NSUInteger)index;
+// remove object from visible range by using removeObjectAtIndex: with isEqual: method.
+- (void)removeObject:(id)object;
 - (void)removeObjectsInArray:(NSArray*)array;
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes;
 // remove all objects at specified indexes.
@@ -70,6 +81,7 @@
 /** Hiding Object */
 
 - (void)hideObject:(id)object;
+- (void)hideObjectsInArray:(NSArray*)array;
 - (void)hideObjectAtIndex:(NSUInteger)index;
 - (void)hideObjectsAtIndexes:(NSIndexSet*)indexes;
 - (void)hideObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
@@ -77,9 +89,9 @@
 /** Unhiding Objects */
 
 - (void)unHideObject:(id)object;
-- (void)unHideObjectAtIndex:(NSUInteger)index;
-- (void)unHideObjectsAtIndexes:(NSIndexSet*)indexes;
+- (void)unHideObjectsInArray:(NSArray*)array;
 - (void)unHideObjectsPassingTest:(BOOL(^)(id obj, NSUInteger idx, BOOL *stop))predicate;
+- (void)unhideAllObjects;
 
 /** Observing Inner Mutation */
 
@@ -96,17 +108,11 @@
 /** Sorting Objects */
 
 - (void)sort;
-- (void)addSortDescriptor:(NSSortDescriptor*)sortDescriptor forKey:(id<NSCopying>)key;
-- (void)setSortDescriptorsWithKeyPare:(NSArray*)sortDescriptorPares;
-- (void)removeSortDescriptorForKey:(id<NSCopying>)key;
-- (void)removeAllSortDescriptors;
+@property (nonatomic, copy) NSArray *sortDescriptors;
 
 /** Filtering Objects */
 
-- (void)addFilterPredicate:(NSPredicate*)predicate forKey:(id<NSCopying>)key;
-- (void)setFilterPredicatesWithKey:(NSArray*)filterPredicatePares;
-- (void)removeFilterPredicateForKey:(id<NSCopying>)key;
-- (void)removeAllFilterPredicates;
+@property (nonatomic, copy) NSArray *filterPredicates;
 
 /** Array Representation */
 
@@ -125,72 +131,25 @@
 // Observers for the collection.
 // Each observer conforms to DIACollectionMutationDelegate protocol.
 @property (nonatomic, readonly) NSArray *delegates;
-@property (nonatomic, readonly) NSArray *filterPredicates;
-@property (nonatomic, readonly) NSArray *sortDescriptors;
 @property (nonatomic, copy)     NSString *sectionNameKeyPath;
 
 @end
 
-typedef enum : NSUInteger{
-    DIACollectionMutationTypeInsert,
-    DIACollectionMutationTypeDelete,
-    DIACollectionMutationTypeMove,
-    DIACollectionMutationTypeExchange,
-    DIACollectionMutationTypeReplace,
-    DIACollectionMutationTypeUpdate
-}DIACollectionMutationType;
-
 @protocol DIACollectionMutationDelegate <NSObject>
 
 - (void)collectionWillChangeContent:(DIACollection*)collection;
-- (void)collection:(DIACollection*)collection didChagneObject:(id)object atIndex:(NSUInteger)index forChangeType:(DIACollectionMutationType)changeType newIndex:(NSUInteger)newIndex newObject:(id)newObject;
-- (void)collection:(DIACollection *)collection didChangeSortingWithSortDescriptros:(NSArray*)sortDescriptors;
+
+- (void)collection:(DIACollection*)collection didInsertObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
+- (void)collection:(DIACollection*)collection didDeleteObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
+- (void)collection:(DIACollection*)collection didMoveObject:(id)object fromIndex:(NSUInteger)fromIndex  toIndex:(NSUInteger)toIndex forReason:(DIACollectionMutationReason)reason;
+- (void)collection:(DIACollection*)collection didUpdateObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
+- (void)collection:(DIACollection*)collection didChangeSortWithSortDescriptros:(NSArray*)sortDescriptors;
+
 - (void)collectioDidChangeContent:(DIACollection*)collection;
 
 @end
 
 @interface DIACollection (NSOrderedSetProtocol)
 <NSCopying, NSSecureCoding, NSFastEnumeration>
-
-@end
-
-@interface DIACollectionSection : NSObject
-
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSString *indexTitle;
-@property (nonatomic, readonly) NSRange range;
-
-@end
-
-@interface DIACollection (UITableViewDataSource)
-
-@property (nonatomic, copy) NSString *sectionNameKeyPath;
-
-// Querying object for spesified index path
-// if not set sectionNameKeyPath property, always returns nil
-- (id)objectAtIndexPath:(NSIndexPath*)indexPath;
-- (NSIndexPath*)indexPathForObject:(id)object;
-- (NSArray*)sections;
-- (NSUInteger)sectionForSectionIndexTitle:(NSString*)title atIndex:(NSUInteger)sectionIndex;
-
-- (void)insertSectionWithName:(NSString*)name toIndex:(NSUInteger)index withObects:(NSArray*)objects;
-
-- (void)deleteSectionsAtIndexes:(NSIndexSet*)indexes;
-- (void)hideSectionsAtIndexes:(NSIndexSet*)indexes;
-
-@end
-
-@protocol DIACollectionTableViewMutationDelegate <NSObject>
-
-- (void)collection:(DIACollection*)collection
-   didChangeObject:(id)object
-       atIndexPath:(NSIndexPath*)indexPath
-     forChangeType:(DIACollectionMutationType)changeType
-      newIndexPath:(NSIndexPath*)newIndexPath
-         newObject:(id)newObject;
-
-- (void)collection:(DIACollection *)collection
-  didChangeSection:(NSUInteger)section
-     forChangeType:(DIACollectionMutationType)changeType;
 
 @end

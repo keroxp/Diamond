@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
 		A6BE4710180BFD3F00C59C32 /* DIAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4700180BFD3F00C59C32 /* DIAViewController.m */; };
 		A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4701180BFD3F00C59C32 /* InfoPlist.strings */; };
@@ -88,6 +90,8 @@
 		A67797FA180C2508001BB0E9 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
 		A67797FB180C2508001BB0E9 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		A67797FC180C2508001BB0E9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIADataSourceCollection.h; sourceTree = "<group>"; };
+		A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADataSourceCollection.m; sourceTree = "<group>"; };
 		A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueCoding.h"; sourceTree = "<group>"; };
 		A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueObserving.h"; sourceTree = "<group>"; };
 		A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSOrderedSet.h"; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 			children = (
 				A6BE4721180BFD9A00C59C32 /* Diamond.h */,
 				A6BE46F4180BFD3F00C59C32 /* DIACollection.h */,
+				A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */,
 				A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */,
 				A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */,
 				A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */,
@@ -300,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				A6BE46F5180BFD3F00C59C32 /* DIACollection.m */,
+				A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */,
 				A6BE46F7180BFD3F00C59C32 /* DIADelegateChain.m */,
 			);
 			name = Implementaions;
@@ -353,6 +359,7 @@
 				A6BE4755180C011300C59C32 /* DIACollection+NSKeyValueCoding.h in Headers */,
 				A6BE4756180C011300C59C32 /* DIACollection+NSKeyValueObserving.h in Headers */,
 				A6BE4757180C011300C59C32 /* DIACollection+NSOrderedSet.h in Headers */,
+				A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */,
 				A6BE4758180C011300C59C32 /* DIADelegateChain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +523,7 @@
 			files = (
 				A6BE474F180C00B600C59C32 /* DIACollection.m in Sources */,
 				A6BE4750180C00B600C59C32 /* DIADelegateChain.m in Sources */,
+				A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

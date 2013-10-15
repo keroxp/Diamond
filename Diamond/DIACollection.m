@@ -30,10 +30,6 @@
     // data filted by predicates
     NSMutableOrderedSet *_filterdObjects;
     
-    // NSDictionaries of pare of NSSortDescriptor and key.
-    NSMutableArray *_sortDescriptors;
-    // NSDictionaries of pare of NSPredicates and key.
-    NSMutableArray *_filterPredicaates;
     // DeelegateChain object
     DIADelegateChain *_delegate;
 }
@@ -41,13 +37,6 @@
 @end
 
 @implementation DIACollection
-
-#pragma mark - MTLJSONSerialization
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey
-{
-    return @{};
-}
 
 #pragma mark - Creating Collection
 
@@ -95,25 +84,52 @@
 
 #pragma mark - Notification
 
-- (void)_notifyChangeOfObject:(id)object
-                      atIndex:(NSUInteger)index
-                forChangeType:(DIACollectionMutationType)changeType
-                     newIndex:(NSUInteger)newIndex
-                    newObject:(id)newObject
-                 isSortChange:(BOOL)sortChange
+- (void)_notyfiWillChangeContent
 {
+    // before changen
     if ([_delegate respondsToSelector:@selector(collectionWillChangeContent:)]) {
         [(id<DIACollectionMutationDelegate>)_delegate collectionWillChangeContent:self];
     }
-    if (sortChange) {
-        if ([_delegate respondsToSelector:@selector(collection:didChangeSortingWithSortDescriptros:)]) {
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeSortingWithSortDescriptros:_sortDescriptors];
+}
+
+- (void)_notifySortChange
+{
+    // sort change
+    if ([_delegate respondsToSelector:@selector(collection:didChangeSortWithSortDescriptros:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeSortWithSortDescriptros:_sortDescriptors];
+    }
+}
+
+- (void)_notifyChangeOfObject:(id)object
+                      atIndex:(NSUInteger)index
+                    forReason:(DIACollectionMutationReason)reason
+                     newIndex:(NSUInteger)newIndex
+{
+    if (reason == 0) {
+        // update
+        if ([_delegate respondsToSelector:@selector(collection:didUpdateObject:atIndex:forReason:)]) {
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didUpdateObject:object atIndex:index forReason:reason];
         }
-    }else{
-        if ([_delegate respondsToSelector:@selector(collection:didChagneObject:atIndex:forChangeType:newIndex:newObject:)]) {
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChagneObject:object atIndex:index forChangeType:changeType newIndex:newIndex newObject:newObject];
+    }else if (reason < 200){
+        // insert
+        if ([_delegate respondsToSelector:@selector(collection:didInsertObject:atIndex:forReason:)]){
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didInsertObject:object atIndex:index forReason:reason];
+        }
+    }else if (reason < 300){
+        // delete
+        if ([_delegate respondsToSelector:@selector(collection:didDeleteObject:atIndex:forReason:)]) {
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didDeleteObject:object atIndex:index forReason:reason];
+        }
+    }else if (reason < 400){
+        // move
+        if ([_delegate respondsToSelector:@selector(collection:didMoveObject:fromIndex:toIndex:forReason:)]) {
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didMoveObject:object fromIndex:index toIndex:newIndex forReason:reason];
         }
     }
+}
+
+- (void)_notifyDidChangeContent
+{
     if ([_delegate respondsToSelector:@selector(collectioDidChangeContent:)]) {
         [(id<DIACollectionMutationDelegate>)_delegate collectioDidChangeContent:self];
     }
@@ -121,10 +137,10 @@
 
 #pragma mark - Adding Object
 
-- (NSUInteger)_indexOfObjectToBeInsertedInSortedArray:(id)object
+- (NSUInteger)_indexOfObject:(id)object toBeInsertedInSortedSet:(NSMutableOrderedSet*)orderedSet
 {
-    NSUInteger idx = [_visibleData indexOfObject:object inSortedRange:NSMakeRange(0, _visibleData.count) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
-        for (NSSortDescriptor *s in _sortDescriptors) {
+    NSUInteger idx = [orderedSet indexOfObject:object inSortedRange:NSMakeRange(0, orderedSet.count) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        for (NSSortDescriptor *s in self.sortDescriptors) {
             NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
             if (r != NSOrderedSame) {
                 return r;
@@ -140,7 +156,7 @@
 {
     // if inserted object matches any fileter predicate,
     // return YES
-    for (NSPredicate *p in _filterPredicates) {
+    for (NSPredicate *p in self.filterPredicates) {
         if ([p evaluateWithObject:object]) {
             return YES;
         }
@@ -148,97 +164,104 @@
     return NO;
 }
 
-- (void)addObject:(id)object
+- (void)_insertObject:(id)object atVisibleIndex:(NSUInteger)visibleIndex actualIndex:(NSUInteger)actualIndex forReason:(DIACollectionMutationReason)reason
 {
-    // add objectc to actual data
-    [_actualData addObject:object];
-    // if have any sort description, try to insert correct position
+    // add to actual data
+    [_actualData insertObject:object atIndex:actualIndex];
+    // check if should be filtered
     if ([self _shouldFilterObject:object]) {
         [_filterdObjects addObject:object];
     }else{
-        NSUInteger idx = [self _indexOfObjectToBeInsertedInSortedArray:object];
-        [_visibleData insertObject:object atIndex:idx];
+        // add to visible range
+        [_visibleData insertObject:object atIndex:visibleIndex];
+        // notify
+        [self _notifyChangeOfObject:object atIndex:visibleIndex forReason:reason newIndex:NSUIntegerMax];
     }
+}
+
+- (void)addObject:(id)object
+{
+    [self addObjectsFromArray:@[object]];
 }
 
 - (void)addObjectsFromArray:(NSArray *)array
 {
-    for (id obj in array) {
-        [self addObject:obj];
+    [self _notyfiWillChangeContent];
+    for (id object in array) {
+        // add to actual data
+        NSUInteger actidx = [self _indexOfObject:object toBeInsertedInSortedSet:_actualData];
+        NSUInteger visidx = [self _indexOfObject:object toBeInsertedInSortedSet:_visibleData];
+        [self _insertObject:object atVisibleIndex:actidx actualIndex:visidx forReason:DIACollectionMutationReasonAdd];
     }
+    [self _notifyDidChangeContent];
 }
 
 - (void)pushObject:(id)object
 {
-    // append to actual data
-    [_actualData addObject:object];
-    // filter
-    if ([self _shouldFilterObject:object]) {
-        [_filterdObjects addObject:object];
-    }else{
-        [_visibleData addObject:object];
-    }
+    [self pushObjectsFromArray:@[object]];
 }
 
 - (void)pushObjectsFromArray:(NSArray *)array
 {
-    for (id obj in array) {
-        [self pushObject:obj];
+    [self _notyfiWillChangeContent];
+    for (id object in array) {
+        NSUInteger actidx = _actualData.count-1;
+        NSUInteger visidx = _visibleData.count-1;
+        [self _insertObject:object atVisibleIndex:visidx actualIndex:actidx forReason:DIACollectionMutationReasonPush];
     }
+    [self _notifyDidChangeContent];
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index
 {
-    // insert to actual data
-    [_actualData insertObject:object atIndex:index];
-    // filter
-    if ([self _shouldFilterObject:object]) {
-        [_filterdObjects addObject:object];
-    }else{
-        [_visibleData insertObject:object atIndex:index];
-    }
+    [self insertObjects:@[object] atIndexes:[NSIndexSet indexSetWithIndex:index]];
 }
 
 - (void)insertObjects:(NSArray *)array atIndexes:(NSIndexSet *)indexes
 {
+    [self _notyfiWillChangeContent];
     NSUInteger currentIndex = [indexes firstIndex];
     NSUInteger i, count = [indexes count];
     for (i = 0; i < count; i++) {
-        [self insertObject:array[i] atIndex:currentIndex];
+        id object = array[i];
+        [self _insertObject:object atVisibleIndex:currentIndex actualIndex:currentIndex forReason:DIACollectionMutationReasonInsert];
         currentIndex = [indexes indexGreaterThanIndex:currentIndex];
     }
+    [self _notifyDidChangeContent];
 }
 
 #pragma mark - Removing Object
 
 - (void)removeObject:(id)object
 {
-    [_actualData removeObject:object];
-    [_visibleData removeObject:object];
+    [self removeObjectsInArray:@[object]];
 }
 
 - (void)removeObjectsInArray:(NSArray *)array
 {
-    for (id obj in array) {
-        [self removeObject:obj];
+    [self _notyfiWillChangeContent];
+    for (id object in array) {
+        // !notice
+        // how do it if object has been hidden or filtered?
+        NSUInteger idx = [_visibleData indexOfObject:object];
+        [_actualData removeObject:object];
+        [_visibleData removeObject:object];
+        // notify
+        [self _notifyChangeOfObject:object atIndex:idx forReason:DIACollectionMutationReasonRemove newIndex:NSIntegerMax];
     }
+    [self _notifyDidChangeContent];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index
 {
-    [_visibleData removeObjectAtIndex:index];
-    [_actualData removeObjectAtIndex:index];
+    id obj = [_visibleData objectAtIndex:index];
+    [self removeObjectsInArray:@[obj]];
 }
 
 - (void)removeObjectsAtIndexes:(NSIndexSet*)indexes
 {
-    NSUInteger currentIndex = [indexes firstIndex];
-    NSUInteger i, count = [indexes count];
-    for (i = 0; i < count; i++) {
-        // decrement for shifting
-        [self removeObjectAtIndex:currentIndex-i];
-        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
-    }
+    NSArray *arr = [_visibleData objectsAtIndexes:indexes];
+    [self removeObjectsInArray:arr];
 }
 
 - (void)removeObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
@@ -249,10 +272,10 @@
 
 -(void)removeAllObjects
 {
-    [_actualData removeAllObjects];
-    [_visibleData removeAllObjects];
     [_filterdObjects removeAllObjects];
     [_hiddenObjects removeAllObjects];
+    NSIndexSet *is = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _actualData.count)];
+    [self removeObjectsAtIndexes:is];
 }
 
 #pragma mark - Moving Objects
@@ -263,8 +286,9 @@
 }
 - (void)moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
 {
-    
+
 }
+
 - (void)exchangeObject:(id)obj1 WithObject:(id)obj2
 {
     
@@ -290,26 +314,33 @@
 
 - (void)hideObject:(id)object
 {
-    NSUInteger idx = [_visibleData indexOfObject:object];
-    id obj = [_visibleData objectAtIndex:idx];
-    [_visibleData removeObject:obj];
-    [_hiddenObjects addObject:obj];
+    [self hideObjectsInArray:@[object]];
 }
 
 - (void)hideObjectAtIndex:(NSUInteger)index
 {
-    [self hideObject:[_visibleData objectAtIndex:index]];
+    id obj = [_visibleData objectAtIndex:index];
+    [self hideObjectsInArray:@[obj]];
+}
+
+- (void)hideObjectsInArray:(NSArray *)array
+{
+    [self _notyfiWillChangeContent];
+    for (id object in array) {
+        NSUInteger idx = [_visibleData indexOfObject:object];
+        if (idx != NSNotFound) {
+            [_visibleData removeObject:object];
+            [_hiddenObjects addObject:object];
+            [self _notifyChangeOfObject:object atIndex:idx forReason:DIACollectionMutationReasonHidden newIndex:NSIntegerMax];
+        }
+    }
+    [self _notifyDidChangeContent];
 }
 
 - (void)hideObjectsAtIndexes:(NSIndexSet*)indexes
 {
-    NSUInteger currentIndex = [indexes firstIndex];
-    NSUInteger i, count = [indexes count];
-    for (i = 0; i < count; i++) {
-        // decrement for shifting
-        [self hideObjectAtIndex:currentIndex-i];
-        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
-    }
+    NSArray *arr = [_visibleData objectsAtIndexes:indexes];
+    [self hideObjectsInArray:arr];
 }
 
 - (void)hideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
@@ -318,36 +349,41 @@
     [self hideObjectsAtIndexes:is];
 }
 
+#pragma mark - UnHidingObjects
+
 - (void)unHideObject:(id)object
 {
-    NSUInteger idx = [_hiddenObjects indexOfObject:object];
-    [self unHideObjectAtIndex:idx]  ;
-    if (idx != NSNotFound) {
-        [_hiddenObjects removeObjectAtIndex:idx];
-        [self addObject:object];
-    }
+    [self unHideObjectsInArray:@[object]];
 }
 
-- (void)unHideObjectAtIndex:(NSUInteger)index
-{
-    [self unHideObject:[_hiddenObjects objectAtIndex:index]];
-}
 
-- (void)unHideObjectsAtIndexes:(NSIndexSet*)indexes
+- (void)unHideObjectsInArray:(NSArray *)array
 {
-    NSUInteger currentIndex = [indexes firstIndex];
-    NSUInteger i, count = [indexes count];
-    for (i = 0; i < count; i++) {
-        [self unHideObjectAtIndex:currentIndex];
-        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+    [self _notyfiWillChangeContent];
+    for (id object in array) {
+        NSUInteger idx = [_hiddenObjects indexOfObject:object];
+        if (idx != NSNotFound) {
+            id obj = [_hiddenObjects objectAtIndex:idx];
+            [_hiddenObjects removeObjectAtIndex:idx];
+            NSUInteger visidx = [self _indexOfObject:obj toBeInsertedInSortedSet:_visibleData];
+            [_visibleData insertObject:obj atIndex:visidx];
+            [self _notifyChangeOfObject:obj atIndex:visidx forReason:DIACollectionMutationReasonUnHidden newIndex:NSUIntegerMax];
+        }
     }
+    [self _notifyDidChangeContent];
 }
-                    
 
 - (void)unHideObjectsPassingTest:(BOOL (^)(id, NSUInteger, BOOL *))predicate
 {
-    NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:predicate];
-    [self unHideObjectsAtIndexes:is];
+    NSIndexSet *is = [_hiddenObjects indexesOfObjectsPassingTest:predicate];
+    NSArray *objs = [_hiddenObjects objectsAtIndexes:is];
+    [self unHideObjectsInArray:objs];
+}
+
+- (void)unhideAllObjects
+{
+    NSArray *arr = [_hiddenObjects array];
+    [self unHideObjectsInArray:arr];
 }
 
 #pragma mark - Observing Inner Mutation
@@ -366,45 +402,41 @@
 
 - (void)sort
 {
-    
+    [_visibleData sortUsingDescriptors:self.sortDescriptors];
+    //notify
 }
 
-- (void)addSortDescriptor:(NSSortDescriptor*)sortDescriptor forKey:(id<NSCopying>)key
+- (void)setSortDescriptors:(NSArray *)sortDescriptors
 {
-    
-}
-- (void)setSortDescriptorsWithKeyPare:(NSArray*)sortDescriptorPares
-{
-    
-}
-- (void)removeSortDescriptorForKey:(id<NSCopying>)key
-{
-    
-}
-- (void)removeAllSortDescriptors
-{
-    
+    if (sortDescriptors != _sortDescriptors) {
+        [_visibleData sortUsingDescriptors:sortDescriptors];
+        //notify
+        _sortDescriptors = sortDescriptors;
+    }
 }
 
 #pragma mark - Filtering Objects
 
-- (void)addFilterPredicate:(NSPredicate*)predicate forKey:(id<NSCopying>)key
+- (void)setFilterPredicates:(NSArray *)filterPredicates
 {
-    
+    if (filterPredicates != _filterPredicates) {
+        [_visibleData unionOrderedSet:_actualData];
+        [_visibleData minusOrderedSet:_hiddenObjects];
+        BOOL (^shouldFilter)(id) = ^(id obj){
+            for (NSPredicate *p in filterPredicates) {
+                if ([p evaluateWithObject:obj]) {
+                    return YES;
+                }
+            }
+            return NO;
+        };
+        NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return shouldFilter(obj);
+        }];
+        [self removeObjectsAtIndexes:is];
+        _filterPredicates = filterPredicates;
+    }
 }
-- (void)setFilterPredicatesWithKey:(NSArray*)filterPredicatePares
-{
-    
-}
-- (void)removeFilterPredicateForKey:(id<NSCopying>)key
-{
-    
-}
-- (void)removeAllFilterPredicates
-{
-    
-}
-
 
 #pragma mark - Array Representation
 
