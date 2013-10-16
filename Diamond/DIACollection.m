@@ -24,10 +24,8 @@
     NSMutableOrderedSet *_hiddenObjects;
     // data filted by predicates
     NSMutableOrderedSet *_filterdObjects;
-    // delegates
-    NSMutableOrderedSet *_delegates;
     // DeelegateChain object
-    DIADelegateChain *_delegate;
+    DIADelegateChain *_delegates;
 }
 
 @end
@@ -62,7 +60,7 @@
         _sortDescriptors = [NSMutableArray new];
         _filterPredicates = [NSMutableArray new];
         // delegators chain
-        _delegate = [DIADelegateChain new];
+        _delegates = [DIADelegateChain new];
     }
     return self;
 }
@@ -83,16 +81,16 @@
 - (void)_notifyWillChangeContent
 {
     // before changen
-    if ([_delegate respondsToSelector:@selector(collectionWillChangeContent:)]) {
-        [(id<DIACollectionMutationDelegate>)_delegate collectionWillChangeContent:self];
+    if ([_delegates respondsToSelector:@selector(collectionWillChangeContent:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegates collectionWillChangeContent:self];
     }
 }
 
 - (void)_notifySortChange
 {
     // sort change
-    if ([_delegate respondsToSelector:@selector(collection:didChangeSortWithSortDescriptros:)]) {
-        [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeSortWithSortDescriptros:_sortDescriptors];
+    if ([_delegates respondsToSelector:@selector(collection:didChangeSortWithSortDescriptros:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegates collection:self didChangeSortWithSortDescriptros:_sortDescriptors];
     }
 }
 
@@ -101,27 +99,27 @@
                     forReason:(DIACollectionMutationReason)reason
                      newIndex:(NSUInteger)newIndex
 {
-    if ([_delegate respondsToSelector:@selector(collection:didChangeObject:atIndex:forChangeType:reason:newIndex:)]) {
+    if ([_delegates respondsToSelector:@selector(collection:didChangeObject:atIndex:forChangeType:reason:newIndex:)]) {
         if (reason == 0) {
             // update
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:DIACollectionNilIndex forChangeType:DIACollectionMutationTypeInsert reason:reason newIndex:index];
+            [(id<DIACollectionMutationDelegate>)_delegates collection:self didChangeObject:object atIndex:DIACollectionNilIndex forChangeType:DIACollectionMutationTypeInsert reason:reason newIndex:index];
         }else if (reason < 200){
             // insert
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeDelete reason:reason newIndex:DIACollectionNilIndex];
+            [(id<DIACollectionMutationDelegate>)_delegates collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeDelete reason:reason newIndex:DIACollectionNilIndex];
         }else if (reason < 300){
             // delete
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeMove reason:reason newIndex:newIndex];
+            [(id<DIACollectionMutationDelegate>)_delegates collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeMove reason:reason newIndex:newIndex];
         }else if (reason < 400){
             // move
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeUpdate reason:reason newIndex:DIACollectionNilIndex];
+            [(id<DIACollectionMutationDelegate>)_delegates collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeUpdate reason:reason newIndex:DIACollectionNilIndex];
         }
     }
 }
 
 - (void)_notifyDidChangeContent
 {
-    if ([_delegate respondsToSelector:@selector(collectioDidChangeContent:)]) {
-        [(id<DIACollectionMutationDelegate>)_delegate collectioDidChangeContent:self];
+    if ([_delegates respondsToSelector:@selector(collectioDidChangeContent:)]) {
+        [(id<DIACollectionMutationDelegate>)_delegates collectioDidChangeContent:self];
     }
 }
 
@@ -396,17 +394,17 @@
 
 - (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate
 {
-    [_delegate addDelegate:delegate];
+    [_delegates addDelegate:delegate];
 }
 
 - (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate
 {
-    [_delegate removeDelegate:delegate];
+    [_delegates removeDelegate:delegate];
 }
 
 - (NSArray *)delegates
 {
-    return _delegate.delegates;
+    return _delegates.delegates;
 }
 
 #pragma mark - Sorting Objects
