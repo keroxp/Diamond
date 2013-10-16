@@ -1,6 +1,6 @@
 WORKSPACE = Diamond.xcworkspace
 PROJECT = Diamond.xcodeproj
-TEST_SCHEME = Diamond
+TEST_SCHEME = DiamondTests
 BUILD_TARGET = Diamond
 EXAMPLE_TARGET = DiamondExpample
 
