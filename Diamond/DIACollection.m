@@ -402,16 +402,27 @@
 
 - (void)sort
 {
-    [_visibleData sortUsingDescriptors:self.sortDescriptors];
-    //notify
+    [self _notyfiWillChangeContent];
+    NSComparator comparetor = ^(id obj1, id obj2){
+        for (NSSortDescriptor *s in _sortDescriptors) {
+            NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
+            if (r != NSOrderedSame) {
+                return r;
+            }
+        }
+        return NSOrderedAscending;
+    };
+    [_visibleData sortUsingComparator:comparetor];
+    [self _notifySortChange];
+    [self _notifyDidChangeContent];
 }
 
 - (void)setSortDescriptors:(NSArray *)sortDescriptors
 {
     if (sortDescriptors != _sortDescriptors) {
-        [_visibleData sortUsingDescriptors:sortDescriptors];
-        //notify
         _sortDescriptors = sortDescriptors;
+        // perform sort
+        [self sort];
     }
 }
 
