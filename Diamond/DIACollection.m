@@ -14,11 +14,6 @@
 
 #define kDiamondFrameworkErrorDomain @"me.keroxp.lib.Diamond"
 
-#define knWillChangeContentNotification @"me.keroxp.lib.DiamonCollection:WillChangeContentNotification"
-#define kDidChangeContentNotification @"me.keroxp.lib.DiamonCollection:DidChangeContentNotification"
-#define kDidChangeObjectNotification @"me.keroxp.lib.DiamonCollection:DidChangeObjectNotification"
-#define kDidChangeSectionNotification @"me.keroxp.lib.DiamonCollection:DidChangeSectionNotification"
-
 @interface DIACollection ()
 {
     // actual data
@@ -45,6 +40,15 @@
     return [[self alloc] initWithArray:array error:error];
 }
 
+- (instancetype)initWithArray:(NSArray *)array error:(NSError *__autoreleasing *)error
+{
+    if (self = [self init]) {
+        [_actualData addObjectsFromArray:array];
+        [_visibleData addObjectsFromArray:array];
+    }
+    return self;
+}
+
 - (id)init
 {
     if (self = [super init]) {
@@ -58,15 +62,6 @@
         _filterPredicates = [NSMutableArray new];
         // delegators chain
         _delegate = [DIADelegateChain new];
-    }
-    return self;
-}
-
-- (instancetype)initWithArray:(NSArray *)array error:(NSError *__autoreleasing *)error
-{
-    if (self = [self init]) {
-        [_actualData addObjectsFromArray:array];
-        [_visibleData addObjectsFromArray:array];
     }
     return self;
 }
@@ -398,6 +393,11 @@
     [_delegate removeDelegate:delegate];
 }
 
+- (NSArray *)delegates
+{
+    return _delegate.delegates;
+}
+
 #pragma mark - Sorting Objects
 
 - (void)sort
@@ -443,10 +443,6 @@
 - (NSArray *)array
 {
     return [_visibleData array];
-}
-- (NSArray*)actualArray
-{
-    return [_actualData array];
 }
 
 #pragma mark - OrderedSet Representation

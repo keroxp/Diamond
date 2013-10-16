@@ -104,6 +104,8 @@ typedef enum : NSUInteger {
 - (void)addDelegate:(id<DIACollectionMutationDelegate>)delegate;
 // Remove the observer for the collection.
 - (void)removeDelegate:(id<DIACollectionMutationDelegate>)delegate;
+// delegate obejcts
+- (NSArray*)delegates;
 
 /** Sorting Objects */
 
@@ -111,27 +113,18 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSArray *sortDescriptors;
 
 /** Filtering Objects */
-
 @property (nonatomic, copy) NSArray *filterPredicates;
 
 /** Array Representation */
 
 - (NSArray *)array;
-- (NSArray *)actualArray;
 
 /** OrderedSet Representation */
 
-- (NSOrderedSet *)filteredOrderedSet;
-- (NSOrderedSet *)hiddenOrderedSet;
 - (NSOrderedSet *)actualOrderedSet;
 - (NSOrderedSet *)orderedSet;
-
-/** Properties */
-
-// Observers for the collection.
-// Each observer conforms to DIACollectionMutationDelegate protocol.
-@property (nonatomic, readonly) NSArray *delegates;
-@property (nonatomic, copy)     NSString *sectionNameKeyPath;
+- (NSOrderedSet *)filteredOrderedSet;
+- (NSOrderedSet *)hiddenOrderedSet;
 
 @end
 

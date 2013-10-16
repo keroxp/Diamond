@@ -101,25 +101,25 @@ describe(@"DIADelegateChain", ^{
            [[chain shouldNot] raiseWhenSent:@selector(count)];
        });
     });
-    context(@"on delegate dealloced", ^{
-       it(@"has no effect", ^{
-           NSArray *dl1 = @[@1];
-           NSArray *dl2 = @[@2];
-           NSArray *dl3 = @[@3];
-           [chain addDelegate:dl1];
-           [chain addDelegate:dl2];
-           [chain addDelegate:dl3];
-           [[theValue(chain.delegates.count) should] equal:theValue(3)];
-           [[theBlock(^{
-               [chain performSelector:@selector(count)];
-           }) shouldNot] raise];
-           dl1 = nil;
-           [[theBlock(^{
-               [[chain.delegates objectAtIndex:0] count];
-           }) shouldNot] raise];
-           [[theValue(chain.delegates.count) should] equal:theValue(3)];
-       });
-    });
+//    context(@"on delegate dealloced", ^{
+//       it(@"has no effect", ^{
+//           NSArray *dl1 = @[@1];
+//           NSArray *dl2 = @[@2];
+//           NSArray *dl3 = @[@3];
+//           [chain addDelegate:dl1];
+//           [chain addDelegate:dl2];
+//           [chain addDelegate:dl3];
+//           [[theValue(chain.delegates.count) should] equal:theValue(3)];
+//           [[theBlock(^{
+//               [chain performSelector:@selector(count)];
+//           }) shouldNot] raise];
+//           free((__bridge void *)(dl1));
+//           [[theBlock(^{
+//               [[chain.delegates objectAtIndex:0] count];
+//           }) should] raise];
+//           [[theValue(chain.delegates.count) should] equal:theValue(3)];
+//       });
+//    });
 });
 
 SPEC_END
