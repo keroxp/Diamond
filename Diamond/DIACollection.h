@@ -13,6 +13,7 @@
 
 @protocol DIACollectionMutationDelegate;
 
+// reasons of mutation for type of mutation
 typedef enum : NSUInteger {
     DIACollectionMutationReasonNone = 0,
     DIACollectionMutationReasonAdd = 100,
@@ -25,6 +26,19 @@ typedef enum : NSUInteger {
     DIACollectionMutationReasonReplace = 300,
     DIACollectionMutationReasonExchange
 }DIACollectionMutationReason;
+
+// types of mutation occurred in collection
+typedef enum : NSUInteger {
+    DIACollectionMutationTypeInsert = 1,
+    DIACollectionMutationTypeDelete,
+    DIACollectionMutationTypeMove,
+    DIACollectionMutationTypeUpdate
+}DIACollectionMutationType;
+
+// a substitute of nil for numerical index
+enum {
+    DIACollectionNilIndex = NSUIntegerMax
+};
 
 @interface DIACollection : NSObject
 
@@ -64,13 +78,9 @@ typedef enum : NSUInteger {
 - (void)removeAllObjects;
 
 /** Moving Objects  */
-
-- (void)moveObject:(id)object beforeObject:(id)beforeObject;
 - (void)moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
 
 /** Exchange Objects */
-
-- (void)exchangeObject:(id)obj1 WithObject:(id)obj2;
 - (void)exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2;
 
 /** Replacing Objects */
@@ -131,13 +141,8 @@ typedef enum : NSUInteger {
 @protocol DIACollectionMutationDelegate <NSObject>
 
 - (void)collectionWillChangeContent:(DIACollection*)collection;
-
-- (void)collection:(DIACollection*)collection didInsertObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
-- (void)collection:(DIACollection*)collection didDeleteObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
-- (void)collection:(DIACollection*)collection didMoveObject:(id)object fromIndex:(NSUInteger)fromIndex  toIndex:(NSUInteger)toIndex forReason:(DIACollectionMutationReason)reason;
-- (void)collection:(DIACollection*)collection didUpdateObject:(id)object atIndex:(NSUInteger)index forReason:(DIACollectionMutationReason)reason;
+- (void)collection:(DIACollection*)collection didChangeObject:(id)object atIndex:(NSUInteger)index forChangeType:(DIACollectionMutationType)type reason:(DIACollectionMutationReason)reason newIndex:(NSUInteger)newIndex;
 - (void)collection:(DIACollection*)collection didChangeSortWithSortDescriptros:(NSArray*)sortDescriptors;
-
 - (void)collectioDidChangeContent:(DIACollection*)collection;
 
 @end

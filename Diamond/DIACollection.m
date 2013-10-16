@@ -24,7 +24,8 @@
     NSMutableOrderedSet *_hiddenObjects;
     // data filted by predicates
     NSMutableOrderedSet *_filterdObjects;
-    
+    // delegates
+    NSMutableOrderedSet *_delegates;
     // DeelegateChain object
     DIADelegateChain *_delegate;
 }
@@ -79,7 +80,7 @@
 
 #pragma mark - Notification
 
-- (void)_notyfiWillChangeContent
+- (void)_notifyWillChangeContent
 {
     // before changen
     if ([_delegate respondsToSelector:@selector(collectionWillChangeContent:)]) {
@@ -100,25 +101,19 @@
                     forReason:(DIACollectionMutationReason)reason
                      newIndex:(NSUInteger)newIndex
 {
-    if (reason == 0) {
-        // update
-        if ([_delegate respondsToSelector:@selector(collection:didUpdateObject:atIndex:forReason:)]) {
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didUpdateObject:object atIndex:index forReason:reason];
-        }
-    }else if (reason < 200){
-        // insert
-        if ([_delegate respondsToSelector:@selector(collection:didInsertObject:atIndex:forReason:)]){
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didInsertObject:object atIndex:index forReason:reason];
-        }
-    }else if (reason < 300){
-        // delete
-        if ([_delegate respondsToSelector:@selector(collection:didDeleteObject:atIndex:forReason:)]) {
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didDeleteObject:object atIndex:index forReason:reason];
-        }
-    }else if (reason < 400){
-        // move
-        if ([_delegate respondsToSelector:@selector(collection:didMoveObject:fromIndex:toIndex:forReason:)]) {
-            [(id<DIACollectionMutationDelegate>)_delegate collection:self didMoveObject:object fromIndex:index toIndex:newIndex forReason:reason];
+    if ([_delegate respondsToSelector:@selector(collection:didChangeObject:atIndex:forChangeType:reason:newIndex:)]) {
+        if (reason == 0) {
+            // update
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:DIACollectionNilIndex forChangeType:DIACollectionMutationTypeInsert reason:reason newIndex:index];
+        }else if (reason < 200){
+            // insert
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeDelete reason:reason newIndex:DIACollectionNilIndex];
+        }else if (reason < 300){
+            // delete
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeMove reason:reason newIndex:newIndex];
+        }else if (reason < 400){
+            // move
+            [(id<DIACollectionMutationDelegate>)_delegate collection:self didChangeObject:object atIndex:index forChangeType:DIACollectionMutationTypeUpdate reason:reason newIndex:DIACollectionNilIndex];
         }
     }
 }
@@ -181,7 +176,7 @@
 
 - (void)addObjectsFromArray:(NSArray *)array
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     for (id object in array) {
         // add to actual data
         NSUInteger actidx = [self _indexOfObject:object toBeInsertedInSortedSet:_actualData];
@@ -198,7 +193,7 @@
 
 - (void)pushObjectsFromArray:(NSArray *)array
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     for (id object in array) {
         NSUInteger actidx = _actualData.count-1;
         NSUInteger visidx = _visibleData.count-1;
@@ -214,7 +209,7 @@
 
 - (void)insertObjects:(NSArray *)array atIndexes:(NSIndexSet *)indexes
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     NSUInteger currentIndex = [indexes firstIndex];
     NSUInteger i, count = [indexes count];
     for (i = 0; i < count; i++) {
@@ -234,7 +229,7 @@
 
 - (void)removeObjectsInArray:(NSArray *)array
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     for (id object in array) {
         // !notice
         // how do it if object has been hidden or filtered?
@@ -275,34 +270,50 @@
 
 #pragma mark - Moving Objects
 
-- (void)moveObject:(id)object beforeObject:(id)beforeObject
-{
-    
-}
 - (void)moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
 {
-
+    [self _notifyWillChangeContent];
+    id obj = [_visibleData objectAtIndex:fromIndex];
+    [_visibleData removeObjectAtIndex:fromIndex];
+    if (toIndex >= _visibleData.count) {
+        [_visibleData addObject:obj];
+    }else{
+        [_visibleData insertObject:obj atIndex:toIndex];
+    }
+    [self _notifyChangeOfObject:obj atIndex:fromIndex forReason:DIACollectionMutationReasonNone newIndex:toIndex];
+    [self _notifyDidChangeContent];
 }
 
-- (void)exchangeObject:(id)obj1 WithObject:(id)obj2
-{
-    
-}
 - (void)exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2
 {
-    
+    [self _notifyWillChangeContent];
+    id obj1 = [_visibleData objectAtIndex:idx1];
+    id obj2 = [_visibleData objectAtIndex:idx2];
+    [_visibleData exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
+    [self _notifyChangeOfObject:obj1 atIndex:idx1 forReason:DIACollectionMutationReasonExchange newIndex:idx2];
+    [self _notifyChangeOfObject:obj2 atIndex:idx2 forReason:DIACollectionMutationReasonExchange newIndex:idx1];
+    [self _notifyDidChangeContent];
 }
 
 #pragma mark - Replaceing Object
 
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)object
 {
-    
+    [self replaceObjectsAtIndexes:[NSIndexSet indexSetWithIndex:index] withObjects:@[object]];
 }
 
 - (void)replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray *)objects
 {
-    
+    NSUInteger currentIndex = [indexes firstIndex];
+    NSUInteger i, count = [indexes count];
+    [self _notifyWillChangeContent];
+    for (i = 0; i < count; i++) {
+        id obj = objects[i];
+        [_visibleData replaceObjectAtIndex:currentIndex withObject:obj];
+        currentIndex = [indexes indexGreaterThanIndex:currentIndex];
+        [self _notifyChangeOfObject:obj atIndex:currentIndex forReason:DIACollectionMutationReasonReplace newIndex:DIACollectionNilIndex];
+    }
+    [self _notifyDidChangeContent];
 }
 
 #pragma mark - Hiding Object
@@ -320,7 +331,7 @@
 
 - (void)hideObjectsInArray:(NSArray *)array
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     for (id object in array) {
         NSUInteger idx = [_visibleData indexOfObject:object];
         if (idx != NSNotFound) {
@@ -354,7 +365,7 @@
 
 - (void)unHideObjectsInArray:(NSArray *)array
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     for (id object in array) {
         NSUInteger idx = [_hiddenObjects indexOfObject:object];
         if (idx != NSNotFound) {
@@ -402,7 +413,7 @@
 
 - (void)sort
 {
-    [self _notyfiWillChangeContent];
+    [self _notifyWillChangeContent];
     NSComparator comparetor = ^(id obj1, id obj2){
         for (NSSortDescriptor *s in _sortDescriptors) {
             NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
