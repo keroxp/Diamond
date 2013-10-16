@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231CF010180E69E0001A5003 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231CF00F180E69E0001A5003 /* SenTestingKit.framework */; };
+		231CF011180E69E0001A5003 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E941809683300D4F6AD /* UIKit.framework */; };
+		231CF012180E69E0001A5003 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
+		231CF024180E69F2001A5003 /* DIADelegateChainSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */; };
+		231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
+		231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
+		2363C81B13EA4742B316E919 /* libPods-DiamondTestOC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */; };
 		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
@@ -17,13 +24,6 @@
 		A6BE4717180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */; };
 		A6BE471D180BFD9A00C59C32 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
 		A6BE4722180BFD9A00C59C32 /* Diamond.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE4721180BFD9A00C59C32 /* Diamond.h */; };
-		A6BE472A180BFD9A00C59C32 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5EAF1809683300D4F6AD /* XCTest.framework */; };
-		A6BE472B180BFD9A00C59C32 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
-		A6BE472C180BFD9A00C59C32 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E941809683300D4F6AD /* UIKit.framework */; };
-		A6BE472F180BFD9A00C59C32 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
-		A6BE4735180BFD9A00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4733180BFD9A00C59C32 /* InfoPlist.strings */; };
-		A6BE473E180BFE5900C59C32 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
-		A6BE473F180BFE5E00C59C32 /* DIADelegateChainSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */; };
 		A6BE474E180C00A900C59C32 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
 		A6BE474F180C00B600C59C32 /* DIACollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46F5180BFD3F00C59C32 /* DIACollection.m */; };
 		A6BE4750180C00B600C59C32 /* DIADelegateChain.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46F7180BFD3F00C59C32 /* DIADelegateChain.m */; };
@@ -37,11 +37,10 @@
 		A6CD5E911809683300D4F6AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
 		A6CD5E931809683300D4F6AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E921809683300D4F6AD /* CoreGraphics.framework */; };
 		A6CD5E951809683300D4F6AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E941809683300D4F6AD /* UIKit.framework */; };
-		DA9034FA4BD045F29FCE1F46 /* libPods-DiamondTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A6BE472D180BFD9A00C59C32 /* PBXContainerItemProxy */ = {
+		231CF022180E69E7001A5003 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A6CD5E851809683300D4F6AD /* Project object */;
 			proxyType = 1;
@@ -72,6 +71,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		231CF00E180E69E0001A5003 /* DiamondTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		231CF00F180E69E0001A5003 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		23F11C3B180E6D6A0066DFE3 /* DiamondTestOC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiamondTestOC-Info.plist"; sourceTree = "<group>"; };
+		23F11C3C180E6D6A0066DFE3 /* DiamondTestOC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiamondTestOC-Prefix.pch"; sourceTree = "<group>"; };
 		331BA3E823084DA7AA85345F /* libPods-DiamondCollectionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondCollectionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A67797E9180C2508001BB0E9 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
@@ -113,7 +116,6 @@
 		A6BE471C180BFD9A00C59C32 /* libDiamond.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDiamond.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BE4720180BFD9A00C59C32 /* Diamond-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Diamond-Prefix.pch"; sourceTree = "<group>"; };
 		A6BE4721180BFD9A00C59C32 /* Diamond.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diamond.h; sourceTree = "<group>"; };
-		A6BE4729180BFD9A00C59C32 /* DiamondTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BE4732180BFD9A00C59C32 /* DiamondTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiamondTests-Info.plist"; sourceTree = "<group>"; };
 		A6BE4734180BFD9A00C59C32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6BE4740180BFE9C00C59C32 /* DiamondExample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DiamondExample-Info.plist"; sourceTree = "<group>"; };
@@ -123,27 +125,29 @@
 		A6CD5E921809683300D4F6AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A6CD5E941809683300D4F6AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A6CD5EAF1809683300D4F6AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiamondTestOC.xcconfig"; path = "Pods/Pods-DiamondTestOC.xcconfig"; sourceTree = "<group>"; };
 		E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiamondTests.xcconfig"; path = "Pods/Pods-DiamondTests.xcconfig"; sourceTree = "<group>"; };
+		F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondTestOC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		231CF00A180E69E0001A5003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */,
+				231CF010180E69E0001A5003 /* SenTestingKit.framework in Frameworks */,
+				231CF011180E69E0001A5003 /* UIKit.framework in Frameworks */,
+				231CF012180E69E0001A5003 /* Foundation.framework in Frameworks */,
+				2363C81B13EA4742B316E919 /* libPods-DiamondTestOC.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A6BE4719180BFD9A00C59C32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A6BE471D180BFD9A00C59C32 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6BE4726180BFD9A00C59C32 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A6BE472A180BFD9A00C59C32 /* XCTest.framework in Frameworks */,
-				A6BE472C180BFD9A00C59C32 /* UIKit.framework in Frameworks */,
-				A6BE472F180BFD9A00C59C32 /* libDiamond.a in Frameworks */,
-				A6BE472B180BFD9A00C59C32 /* Foundation.framework in Frameworks */,
-				DA9034FA4BD045F29FCE1F46 /* libPods-DiamondTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +165,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23F11C3D180E6D6F0066DFE3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				23F11C3B180E6D6A0066DFE3 /* DiamondTestOC-Info.plist */,
+				23F11C3C180E6D6A0066DFE3 /* DiamondTestOC-Prefix.pch */,
+				A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A67797E7180C2508001BB0E9 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,9 +265,9 @@
 		A6BE4705180BFD3F00C59C32 /* DiamondTests */ = {
 			isa = PBXGroup;
 			children = (
+				23F11C3D180E6D6F0066DFE3 /* Supporting Files */,
 				A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */,
 				A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */,
-				A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */,
 				A6BE4731180BFD9A00C59C32 /* Supporting Files */,
 			);
 			path = DiamondTests;
@@ -321,6 +335,7 @@
 				A6CD5E8F1809683300D4F6AD /* Frameworks */,
 				A6CD5E8E1809683300D4F6AD /* Products */,
 				E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */,
+				DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -329,7 +344,7 @@
 			children = (
 				A6CD5E8D1809683300D4F6AD /* DiamondExample.app */,
 				A6BE471C180BFD9A00C59C32 /* libDiamond.a */,
-				A6BE4729180BFD9A00C59C32 /* DiamondTests.xctest */,
+				231CF00E180E69E0001A5003 /* DiamondTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -343,6 +358,8 @@
 				A6CD5EAF1809683300D4F6AD /* XCTest.framework */,
 				331BA3E823084DA7AA85345F /* libPods-DiamondCollectionTests.a */,
 				98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */,
+				231CF00F180E69E0001A5003 /* SenTestingKit.framework */,
+				F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -367,6 +384,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		231CF00D180E69E0001A5003 /* DiamondTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 231CF021180E69E0001A5003 /* Build configuration list for PBXNativeTarget "DiamondTests" */;
+			buildPhases = (
+				F6E217E25D9D4BDD8D5C4B73 /* Check Pods Manifest.lock */,
+				231CF009180E69E0001A5003 /* Sources */,
+				231CF00A180E69E0001A5003 /* Frameworks */,
+				231CF00B180E69E0001A5003 /* Resources */,
+				231CF00C180E69E0001A5003 /* ShellScript */,
+				1AEE20A9209540BB9C534877 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				231CF023180E69E7001A5003 /* PBXTargetDependency */,
+			);
+			name = DiamondTests;
+			productName = DiamondTestOC;
+			productReference = 231CF00E180E69E0001A5003 /* DiamondTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		A6BE471B180BFD9A00C59C32 /* Diamond */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A6BE4738180BFD9A00C59C32 /* Build configuration list for PBXNativeTarget "Diamond" */;
@@ -384,26 +422,6 @@
 			productName = Diamond;
 			productReference = A6BE471C180BFD9A00C59C32 /* libDiamond.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		A6BE4728180BFD9A00C59C32 /* DiamondTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A6BE473B180BFD9A00C59C32 /* Build configuration list for PBXNativeTarget "DiamondTests" */;
-			buildPhases = (
-				FF6B03F9713F4B00A6FE86B2 /* Check Pods Manifest.lock */,
-				A6BE4725180BFD9A00C59C32 /* Sources */,
-				A6BE4726180BFD9A00C59C32 /* Frameworks */,
-				A6BE4727180BFD9A00C59C32 /* Resources */,
-				4E3DACAC743D44D4A01306A3 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A6BE472E180BFD9A00C59C32 /* PBXTargetDependency */,
-			);
-			name = DiamondTests;
-			productName = DiamondTests;
-			productReference = A6BE4729180BFD9A00C59C32 /* DiamondTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A6CD5E8C1809683300D4F6AD /* DiamondExample */ = {
 			isa = PBXNativeTarget;
@@ -433,9 +451,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Yusuke Sakurai";
 				TargetAttributes = {
-					A6BE4728180BFD9A00C59C32 = {
-						TestTargetID = A6BE471B180BFD9A00C59C32;
-					};
 					A6CD5E8C1809683300D4F6AD = {
 						DevelopmentTeam = 2M4NMV4P4Y;
 					};
@@ -455,18 +470,17 @@
 			projectRoot = "";
 			targets = (
 				A6BE471B180BFD9A00C59C32 /* Diamond */,
-				A6BE4728180BFD9A00C59C32 /* DiamondTests */,
+				231CF00D180E69E0001A5003 /* DiamondTests */,
 				A6CD5E8C1809683300D4F6AD /* DiamondExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A6BE4727180BFD9A00C59C32 /* Resources */ = {
+		231CF00B180E69E0001A5003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6BE4735180BFD9A00C59C32 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +498,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4E3DACAC743D44D4A01306A3 /* Copy Pods Resources */ = {
+		1AEE20A9209540BB9C534877 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -496,10 +510,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-DiamondTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-DiamondTestOC-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FF6B03F9713F4B00A6FE86B2 /* Check Pods Manifest.lock */ = {
+		231CF00C180E69E0001A5003 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		F6E217E25D9D4BDD8D5C4B73 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -517,6 +544,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		231CF009180E69E0001A5003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				231CF024180E69F2001A5003 /* DIADelegateChainSpec.m in Sources */,
+				231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A6BE4718180BFD9A00C59C32 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,15 +560,6 @@
 				A6BE474F180C00B600C59C32 /* DIACollection.m in Sources */,
 				A6BE4750180C00B600C59C32 /* DIADelegateChain.m in Sources */,
 				A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6BE4725180BFD9A00C59C32 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A6BE473F180BFE5E00C59C32 /* DIADelegateChainSpec.m in Sources */,
-				A6BE473E180BFE5900C59C32 /* DIACollectionSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,10 +576,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A6BE472E180BFD9A00C59C32 /* PBXTargetDependency */ = {
+		231CF023180E69E7001A5003 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A6BE471B180BFD9A00C59C32 /* Diamond */;
-			targetProxy = A6BE472D180BFD9A00C59C32 /* PBXContainerItemProxy */;
+			targetProxy = 231CF022180E69E7001A5003 /* PBXContainerItemProxy */;
 		};
 		A6BE474D180C00A300C59C32 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -597,6 +624,78 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		231CF01D180E69E0001A5003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiamondTests/DiamondTests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		231CF01E180E69E0001A5003 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiamondTests/DiamondTests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Test;
+		};
+		231CF01F180E69E0001A5003 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiamondTests/DiamondTests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Profile;
+		};
+		231CF020180E69E0001A5003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DiamondTests/DiamondTests-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		A67797FD180C254F001BB0E9 /* Test */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A67797EE180C2508001BB0E9 /* Test.xcconfig */;
@@ -657,29 +756,6 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = Test;
-		};
-		A67797FF180C254F001BB0E9 /* Test */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Diamond/Diamond-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Test;
 		};
@@ -763,29 +839,6 @@
 			};
 			name = Profile;
 		};
-		A6779803180C2556001BB0E9 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Diamond/Diamond-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Profile;
-		};
 		A6779804180C2556001BB0E9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A67797F3180C2508001BB0E9 /* iOS-Application.xcconfig */;
@@ -842,48 +895,6 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		A6BE473C180BFD9A00C59C32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Diamond/Diamond-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		A6BE473D180BFD9A00C59C32 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Diamond/Diamond-Prefix.pch";
-				INFOPLIST_FILE = "DiamondTests/DiamondTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -998,6 +1009,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		231CF021180E69E0001A5003 /* Build configuration list for PBXNativeTarget "DiamondTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				231CF01D180E69E0001A5003 /* Debug */,
+				231CF01E180E69E0001A5003 /* Test */,
+				231CF01F180E69E0001A5003 /* Profile */,
+				231CF020180E69E0001A5003 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A6BE4738180BFD9A00C59C32 /* Build configuration list for PBXNativeTarget "Diamond" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1005,17 +1027,6 @@
 				A67797FE180C254F001BB0E9 /* Test */,
 				A6779802180C2556001BB0E9 /* Profile */,
 				A6BE473A180BFD9A00C59C32 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A6BE473B180BFD9A00C59C32 /* Build configuration list for PBXNativeTarget "DiamondTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A6BE473C180BFD9A00C59C32 /* Debug */,
-				A67797FF180C254F001BB0E9 /* Test */,
-				A6779803180C2556001BB0E9 /* Profile */,
-				A6BE473D180BFD9A00C59C32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
