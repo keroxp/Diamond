@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'DiamondTestOC' target in the 'DiamondTestOC' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif

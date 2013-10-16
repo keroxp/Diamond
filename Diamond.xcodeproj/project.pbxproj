@@ -14,6 +14,7 @@
 		231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
 		231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
 		2363C81B13EA4742B316E919 /* libPods-DiamondTestOC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */; };
+		28C394A7517842AC86702EF3 /* libPods-DiamondTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */; };
 		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
@@ -140,6 +141,7 @@
 				231CF011180E69E0001A5003 /* UIKit.framework in Frameworks */,
 				231CF012180E69E0001A5003 /* Foundation.framework in Frameworks */,
 				2363C81B13EA4742B316E919 /* libPods-DiamondTestOC.a in Frameworks */,
+				28C394A7517842AC86702EF3 /* libPods-DiamondTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +512,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-DiamondTestOC-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-DiamondTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		231CF00C180E69E0001A5003 /* ShellScript */ = {
@@ -626,7 +628,7 @@
 /* Begin XCBuildConfiguration section */
 		231CF01D180E69E0001A5003 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -644,7 +646,7 @@
 		};
 		231CF01E180E69E0001A5003 /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -662,7 +664,7 @@
 		};
 		231CF01F180E69E0001A5003 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -680,7 +682,7 @@
 		};
 		231CF020180E69E0001A5003 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD7D45F05E334147AFFCBC83 /* Pods-DiamondTestOC.xcconfig */;
+			baseConfigurationReference = E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -716,6 +718,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(inherited)\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -796,6 +799,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(inherited)\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -918,6 +922,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(inherited)\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -959,6 +964,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(inherited)\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
