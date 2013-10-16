@@ -12,6 +12,7 @@ clean:
 		-scheme $(TEST_SCHEME)
 
 test:
+	./script/bootstrap
 	xcodebuild \
 		-workspace $(WORKSPACE) \
 		-scheme $(TEST_SCHEME) \
@@ -20,6 +21,7 @@ test:
 		TEST_HOST=
 
 test-with-coverage:
+	./script/bootstrap
 	xcodebuild \
 		-workspace $(WORKSPACE) \
 		-scheme $(TEST_SCHEME) \
