@@ -13,7 +13,7 @@
 		231CF024180E69F2001A5003 /* DIADelegateChainSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */; };
 		231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
 		231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
-		28C394A7517842AC86702EF3 /* libPods-DiamondTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */; };
+		A6544A2E18117A85002EB045 /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6544A2318117A13002EB045 /* libKiwi.a */; };
 		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
@@ -47,6 +47,48 @@
 			remoteGlobalIDString = A6BE471B180BFD9A00C59C32;
 			remoteInfo = Diamond;
 		};
+		A6544A2218117A13002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015B9F11583A77002E9A98;
+			remoteInfo = Kiwi;
+		};
+		A6544A2418117A13002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 832C83C7157263B300F160D5;
+			remoteInfo = "Kiwi-OSX";
+		};
+		A6544A2618117A13002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015C9E11584017002E9A98;
+			remoteInfo = KiwiTests;
+		};
+		A6544A2818117A13002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA084E7317E3838100592D5A;
+			remoteInfo = "Kiwi-XCTest";
+		};
+		A6544A2A18117A13002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA084D3E17E3804200592D5A;
+			remoteInfo = KiwiXCTests;
+		};
+		A6544A2C18117A7E002EB045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F5015B9E11583A77002E9A98;
+			remoteInfo = Kiwi;
+		};
 		A6BE474C180C00A300C59C32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A6CD5E851809683300D4F6AD /* Project object */;
@@ -75,8 +117,7 @@
 		231CF00F180E69E0001A5003 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		23F11C3B180E6D6A0066DFE3 /* DiamondTestOC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiamondTestOC-Info.plist"; sourceTree = "<group>"; };
 		23F11C3C180E6D6A0066DFE3 /* DiamondTestOC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiamondTestOC-Prefix.pch"; sourceTree = "<group>"; };
-		331BA3E823084DA7AA85345F /* libPods-DiamondCollectionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondCollectionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6544A1918117A13002EB045 /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = Kiwi/Kiwi.xcodeproj; sourceTree = "<group>"; };
 		A67797E9180C2508001BB0E9 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		A67797EB180C2508001BB0E9 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		A67797EC180C2508001BB0E9 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
@@ -126,7 +167,6 @@
 		A6CD5E941809683300D4F6AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A6CD5EAF1809683300D4F6AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E47CD6F0DE0440ED9E9AEA1F /* Pods-DiamondTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiamondTests.xcconfig"; path = "Pods/Pods-DiamondTests.xcconfig"; sourceTree = "<group>"; };
-		F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DiamondTestOC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,11 +174,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6544A2E18117A85002EB045 /* libKiwi.a in Frameworks */,
 				231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */,
 				231CF010180E69E0001A5003 /* SenTestingKit.framework in Frameworks */,
 				231CF011180E69E0001A5003 /* UIKit.framework in Frameworks */,
 				231CF012180E69E0001A5003 /* Foundation.framework in Frameworks */,
-				28C394A7517842AC86702EF3 /* libPods-DiamondTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +212,18 @@
 				A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A6544A1A18117A13002EB045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6544A2318117A13002EB045 /* libKiwi.a */,
+				A6544A2518117A13002EB045 /* libKiwi-OSX.a */,
+				A6544A2718117A13002EB045 /* KiwiTests.octest */,
+				A6544A2918117A13002EB045 /* libKiwi-XCTest.a */,
+				A6544A2B18117A13002EB045 /* KiwiXCTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		A67797E7180C2508001BB0E9 /* Configuration */ = {
@@ -350,14 +402,12 @@
 		A6CD5E8F1809683300D4F6AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A6544A1918117A13002EB045 /* Kiwi.xcodeproj */,
 				A6CD5E901809683300D4F6AD /* Foundation.framework */,
 				A6CD5E921809683300D4F6AD /* CoreGraphics.framework */,
 				A6CD5E941809683300D4F6AD /* UIKit.framework */,
 				A6CD5EAF1809683300D4F6AD /* XCTest.framework */,
-				331BA3E823084DA7AA85345F /* libPods-DiamondCollectionTests.a */,
-				98050DAEE56F49A5866A006D /* libPods-DiamondTests.a */,
 				231CF00F180E69E0001A5003 /* SenTestingKit.framework */,
-				F06623E9E0B04ED0A911CD3A /* libPods-DiamondTestOC.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -396,6 +446,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A6544A2D18117A7E002EB045 /* PBXTargetDependency */,
 				231CF023180E69E7001A5003 /* PBXTargetDependency */,
 			);
 			name = DiamondTests;
@@ -465,6 +516,12 @@
 			mainGroup = A6CD5E841809683300D4F6AD;
 			productRefGroup = A6CD5E8E1809683300D4F6AD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A6544A1A18117A13002EB045 /* Products */;
+					ProjectRef = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A6BE471B180BFD9A00C59C32 /* Diamond */,
@@ -473,6 +530,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A6544A2318117A13002EB045 /* libKiwi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKiwi.a;
+			remoteRef = A6544A2218117A13002EB045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A6544A2518117A13002EB045 /* libKiwi-OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKiwi-OSX.a";
+			remoteRef = A6544A2418117A13002EB045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A6544A2718117A13002EB045 /* KiwiTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KiwiTests.octest;
+			remoteRef = A6544A2618117A13002EB045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A6544A2918117A13002EB045 /* libKiwi-XCTest.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKiwi-XCTest.a";
+			remoteRef = A6544A2818117A13002EB045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A6544A2B18117A13002EB045 /* KiwiXCTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KiwiXCTests.xctest;
+			remoteRef = A6544A2A18117A13002EB045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		231CF00B180E69E0001A5003 /* Resources */ = {
@@ -578,6 +673,11 @@
 			isa = PBXTargetDependency;
 			target = A6BE471B180BFD9A00C59C32 /* Diamond */;
 			targetProxy = 231CF022180E69E7001A5003 /* PBXContainerItemProxy */;
+		};
+		A6544A2D18117A7E002EB045 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kiwi;
+			targetProxy = A6544A2C18117A7E002EB045 /* PBXContainerItemProxy */;
 		};
 		A6BE474D180C00A300C59C32 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
