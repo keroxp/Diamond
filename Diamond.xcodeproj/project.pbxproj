@@ -13,11 +13,14 @@
 		231CF024180E69F2001A5003 /* DIADelegateChainSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */; };
 		231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
 		231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
+		A63D958B181571E8006F7E5C /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = A678420C181570F9003C4954 /* Pokemon.m */; };
 		A6544A2E18117A85002EB045 /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6544A2318117A13002EB045 /* libKiwi.a */; };
+		A67842091815709D003C4954 /* DIAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67842081815709D003C4954 /* DIAMainViewController.m */; };
+		A678420D181570F9003C4954 /* pokedex.json in Resources */ = {isa = PBXBuildFile; fileRef = A678420A181570F9003C4954 /* pokedex.json */; };
+		A678420E181570F9003C4954 /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = A678420C181570F9003C4954 /* Pokemon.m */; };
 		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
-		A6BE4710180BFD3F00C59C32 /* DIAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4700180BFD3F00C59C32 /* DIAViewController.m */; };
 		A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4701180BFD3F00C59C32 /* InfoPlist.strings */; };
 		A6BE4712180BFD3F00C59C32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4703180BFD3F00C59C32 /* Images.xcassets */; };
 		A6BE4713180BFD3F00C59C32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4704180BFD3F00C59C32 /* main.m */; };
@@ -32,10 +35,11 @@
 		A6BE4756180C011300C59C32 /* DIACollection+NSKeyValueObserving.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BE4757180C011300C59C32 /* DIACollection+NSOrderedSet.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6BE4758180C011300C59C32 /* DIADelegateChain.h in Headers */ = {isa = PBXBuildFile; fileRef = A6BE46F6180BFD3F00C59C32 /* DIADelegateChain.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6BE4759180C01E500C59C32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BE46F9180BFD3F00C59C32 /* Main.storyboard */; };
+		A6CA7A971815735500A9B1EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63D9591181571FA006F7E5C /* Main.storyboard */; };
 		A6CD5E911809683300D4F6AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
 		A6CD5E931809683300D4F6AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E921809683300D4F6AD /* CoreGraphics.framework */; };
 		A6CD5E951809683300D4F6AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E941809683300D4F6AD /* UIKit.framework */; };
+		A6DF7473181571C300D77233 /* DIAPokemonSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6DF7472181571C300D77233 /* DIAPokemonSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +118,7 @@
 /* Begin PBXFileReference section */
 		231CF00E180E69E0001A5003 /* DiamondTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		231CF00F180E69E0001A5003 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A63D9592181571FA006F7E5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A6544A1918117A13002EB045 /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = Kiwi/Kiwi.xcodeproj; sourceTree = "<group>"; };
 		A67797E9180C2508001BB0E9 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		A67797EB180C2508001BB0E9 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -131,6 +136,11 @@
 		A67797FA180C2508001BB0E9 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
 		A67797FB180C2508001BB0E9 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		A67797FC180C2508001BB0E9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		A67842071815709D003C4954 /* DIAMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAMainViewController.h; sourceTree = "<group>"; };
+		A67842081815709D003C4954 /* DIAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAMainViewController.m; sourceTree = "<group>"; };
+		A678420A181570F9003C4954 /* pokedex.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokedex.json; sourceTree = "<group>"; };
+		A678420B181570F9003C4954 /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
+		A678420C181570F9003C4954 /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
 		A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIADataSourceCollection.h; sourceTree = "<group>"; };
 		A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADataSourceCollection.m; sourceTree = "<group>"; };
 		A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueCoding.h"; sourceTree = "<group>"; };
@@ -140,11 +150,8 @@
 		A6BE46F5180BFD3F00C59C32 /* DIACollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIACollection.m; sourceTree = "<group>"; };
 		A6BE46F6180BFD3F00C59C32 /* DIADelegateChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIADelegateChain.h; sourceTree = "<group>"; };
 		A6BE46F7180BFD3F00C59C32 /* DIADelegateChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADelegateChain.m; sourceTree = "<group>"; };
-		A6BE46FA180BFD3F00C59C32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A6BE46FB180BFD3F00C59C32 /* DIAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAAppDelegate.h; sourceTree = "<group>"; };
 		A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAAppDelegate.m; sourceTree = "<group>"; };
-		A6BE46FF180BFD3F00C59C32 /* DIAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIAViewController.h; sourceTree = "<group>"; };
-		A6BE4700180BFD3F00C59C32 /* DIAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAViewController.m; sourceTree = "<group>"; };
 		A6BE4702180BFD3F00C59C32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6BE4703180BFD3F00C59C32 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A6BE4704180BFD3F00C59C32 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -162,6 +169,7 @@
 		A6CD5E921809683300D4F6AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A6CD5E941809683300D4F6AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A6CD5EAF1809683300D4F6AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A6DF7472181571C300D77233 /* DIAPokemonSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIAPokemonSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,12 +295,14 @@
 		A6BE46F8180BFD3F00C59C32 /* DiamondExample */ = {
 			isa = PBXGroup;
 			children = (
+				A63D9591181571FA006F7E5C /* Main.storyboard */,
 				A6BE4743180BFEA400C59C32 /* Supporting Files */,
-				A6BE46F9180BFD3F00C59C32 /* Main.storyboard */,
+				A678420B181570F9003C4954 /* Pokemon.h */,
+				A678420C181570F9003C4954 /* Pokemon.m */,
 				A6BE46FB180BFD3F00C59C32 /* DIAAppDelegate.h */,
 				A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */,
-				A6BE46FF180BFD3F00C59C32 /* DIAViewController.h */,
-				A6BE4700180BFD3F00C59C32 /* DIAViewController.m */,
+				A67842071815709D003C4954 /* DIAMainViewController.h */,
+				A67842081815709D003C4954 /* DIAMainViewController.m */,
 				A6BE4704180BFD3F00C59C32 /* main.m */,
 			);
 			path = DiamondExample;
@@ -303,6 +313,7 @@
 			children = (
 				A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */,
 				A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */,
+				A6DF7472181571C300D77233 /* DIAPokemonSpec.m */,
 				A6BE4731180BFD9A00C59C32 /* Supporting Files */,
 			);
 			path = DiamondTests;
@@ -320,6 +331,7 @@
 		A6BE4743180BFEA400C59C32 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A678420A181570F9003C4954 /* pokedex.json */,
 				A6BE4740180BFE9C00C59C32 /* DiamondExample-Info.plist */,
 				A6BE4741180BFE9C00C59C32 /* DiamondExample-Prefix.pch */,
 				A6BE4701180BFD3F00C59C32 /* InfoPlist.strings */,
@@ -565,7 +577,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6BE4759180C01E500C59C32 /* Main.storyboard in Resources */,
+				A6CA7A971815735500A9B1EB /* Main.storyboard in Resources */,
+				A678420D181570F9003C4954 /* pokedex.json in Resources */,
 				A6BE4712180BFD3F00C59C32 /* Images.xcassets in Resources */,
 				A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */,
 			);
@@ -594,8 +607,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A63D958B181571E8006F7E5C /* Pokemon.m in Sources */,
 				231CF024180E69F2001A5003 /* DIADelegateChainSpec.m in Sources */,
 				231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */,
+				A6DF7473181571C300D77233 /* DIAPokemonSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,8 +629,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6BE4713180BFD3F00C59C32 /* main.m in Sources */,
+				A678420E181570F9003C4954 /* Pokemon.m in Sources */,
+				A67842091815709D003C4954 /* DIAMainViewController.m in Sources */,
 				A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */,
-				A6BE4710180BFD3F00C59C32 /* DIAViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,10 +656,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A6BE46F9180BFD3F00C59C32 /* Main.storyboard */ = {
+		A63D9591181571FA006F7E5C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A6BE46FA180BFD3F00C59C32 /* Base */,
+				A63D9592181571FA006F7E5C /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -861,7 +877,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiamondExample/DiamondExample-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DiamondExample/DiamondExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = DiamondExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -949,7 +966,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiamondExample/DiamondExample-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DiamondExample/DiamondExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = DiamondExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1099,7 +1117,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiamondExample/DiamondExample-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DiamondExample/DiamondExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = DiamondExample;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1115,7 +1134,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DiamondExample/DiamondExample-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/DiamondExample/DiamondExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = DiamondExample;
 				WRAPPER_EXTENSION = app;
 			};

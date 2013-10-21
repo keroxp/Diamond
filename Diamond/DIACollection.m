@@ -175,7 +175,7 @@
         // add to visible range
         [_visibleData insertObject:object atIndex:visibleIndex];
         // notify
-        [self _notifyChangeOfObject:object atIndex:visibleIndex forReason:reason newIndex:NSUIntegerMax];
+        [self _notifyChangeOfObject:object atIndex:DIACollectionNilIndex forReason:reason newIndex:visibleIndex];
     }
 }
 
@@ -191,7 +191,7 @@
         // add to actual data
         NSUInteger actidx = [self _indexOfObject:object toBeInsertedInSortedSet:_actualData];
         NSUInteger visidx = [self _indexOfObject:object toBeInsertedInSortedSet:_visibleData];
-        [self _insertObject:object atVisibleIndex:actidx actualIndex:visidx forReason:DIACollectionMutationReasonAdd];
+        [self _insertObject:object atVisibleIndex:visidx actualIndex:actidx forReason:DIACollectionMutationReasonAdd];
     }
     [self _notifyDidChangeContent];
 }
@@ -205,8 +205,8 @@
 {
     [self _notifyWillChangeContent];
     for (id object in array) {
-        NSUInteger actidx = _actualData.count-1;
-        NSUInteger visidx = _visibleData.count-1;
+        NSUInteger actidx = _actualData.count;
+        NSUInteger visidx = _visibleData.count;
         [self _insertObject:object atVisibleIndex:visidx actualIndex:actidx forReason:DIACollectionMutationReasonPush];
     }
     [self _notifyDidChangeContent];

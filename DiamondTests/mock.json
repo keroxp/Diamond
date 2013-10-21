@@ -1,0 +1,34 @@
+[
+  {
+    "name" : "Tsubomi Hanasaki",
+    "cure_name" : "Cure Blossom",
+    "color" : "pink",
+    "seriese" : "Heart Catch Precure!",
+    "is_leader" : true,
+    "thumb" : "tsubomi.png"
+    },
+  {
+    "name" : "Erika Kurumi",
+    "cure_name" : "Cure Marine",
+    "color" : "blue",
+    "seriese" : "Heart Catch Precure!",
+    "is_leader" : false,
+    "thumb" : "erika.png"
+      },
+  {
+    "name" : "Itsuki Myodoin",
+    "cure_name" : "Cure Sunshine",
+    "color" : "yellow",
+    "seriese" : "Heart Catch Precure!",
+    "is_leader" : false,
+    "thumb" : "itsuki.png"
+      },
+  {
+    "name" : "Yuri Tsukikage",
+    "cure_name" : "Cure Moonlight",
+    "color" : "silver",
+    "seriese" : "Heart Catch Precure",
+    "is_leader" : false,
+    "thumb" : "yuri.png"
+      }
+]

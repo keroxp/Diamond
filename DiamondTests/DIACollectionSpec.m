@@ -14,7 +14,7 @@
 #import <objc/runtime.h>
 
 
-SPEC_BEGIN(DiamondCollectionSpec)
+SPEC_BEGIN(DIACollectionSpec)
 
 NSArray *array = @[@0,@1,@2,@3,@4];
 __block DIACollection *collection;
@@ -313,7 +313,24 @@ describe(@"sort", ^{
         });
     });
     context(@"on addOject", ^{
-        
+        it(@"should insert object to sorted position", ^{
+            NSArray *a = @[@10,@20,@30,@40];
+            // 0,1,2,3,4,10,20,30,40
+            [collection addObjectsFromArray:a];
+            NSSortDescriptor *s = [NSSortDescriptor sortDescriptorWithKey:@"unsignedIntegerValue" ascending:NO];
+            // 40,30,20,10,4,3,2,1,0
+            [collection setSortDescriptors:@[s]];
+            [collection addObject:@21];
+            // 40,30,21,10...
+            [[theValue([collection indexOfObject:@21]) should] equal:theValue(2)];
+            // 40,30,21,10...50
+            [collection pushObject:@50];
+            [[[collection lastObject] should] equal:@50];
+            // restore
+            [collection sort];
+            [[[collection firstObject] should] equal:@50];
+            [[[collection lastObject] should] equal:@0];
+        });
     });
 });
 
