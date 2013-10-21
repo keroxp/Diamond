@@ -46,6 +46,8 @@ enum {
 
 + (instancetype)collectionWithArray:(NSArray*)array error:(NSError**)error;
 - (instancetype)initWithArray:(NSArray*)array error:(NSError**)error;
++ (instancetype)collectionWithArray:(NSArray *)array sortDescriptors:(NSArray*)sortDescriptors filterPredicates:(NSArray*)filterPredicate error:(NSError **)error;
+- (instancetype)initWithArray:(NSArray *)array sortDescriptors:(NSArray*)sortDescriptors filterPredicates:(NSArray*)filterPredicate error:(NSError **)error;
 
 /** Adding Object */
 

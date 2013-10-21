@@ -32,6 +32,9 @@
 
 @implementation DIACollection
 
+@synthesize filterPredicates = _filterPredicates;
+@synthesize sortDescriptors = _sortDescriptors;
+
 #pragma mark - Creating Collection
 
 + (instancetype)collectionWithArray:(NSArray *)array error:(NSError *__autoreleasing *)error
@@ -41,9 +44,21 @@
 
 - (instancetype)initWithArray:(NSArray *)array error:(NSError *__autoreleasing *)error
 {
+    return [self initWithArray:array sortDescriptors:nil filterPredicates:nil error:error];
+}
+
++ (instancetype)collectionWithArray:(NSArray *)array sortDescriptors:(NSArray *)sortDescriptors filterPredicates:(NSArray *)filterPredicate error:(NSError *__autoreleasing *)error
+{
+    return [[self alloc] initWithArray:array sortDescriptors:sortDescriptors filterPredicates:filterPredicate error:error];
+}
+
+- (instancetype)initWithArray:(NSArray *)array sortDescriptors:(NSArray *)sortDescriptors filterPredicates:(NSArray *)filterPredicate error:(NSError *__autoreleasing *)error
+{
     if (self = [self init]) {
         [_actualData addObjectsFromArray:array];
         [_visibleData addObjectsFromArray:array];
+        _sortDescriptors = sortDescriptors;
+        _filterPredicates = filterPredicate;
     }
     return self;
 }
@@ -56,9 +71,6 @@
         _hiddenObjects = [NSMutableOrderedSet new];
         _filterdObjects = [NSMutableOrderedSet new];
         _visibleData = [NSMutableOrderedSet new];
-        // filters and sort descriptions
-        _sortDescriptors = [NSMutableArray new];
-        _filterPredicates = [NSMutableArray new];
         // delegators chain
         _delegates = [DIADelegateChain new];
     }
@@ -412,16 +424,30 @@
 - (void)sort
 {
     [self _notifyWillChangeContent];
-    NSComparator comparetor = ^(id obj1, id obj2){
-        for (NSSortDescriptor *s in _sortDescriptors) {
-            NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
-            if (r != NSOrderedSame) {
-                return r;
+    // if has some sort descriptor, performsort with it
+    if (_sortDescriptors) {
+        NSComparator comparetor = ^(id obj1, id obj2){
+            for (NSSortDescriptor *s in _sortDescriptors) {
+                NSComparisonResult r = [s compareObject:obj1 toObject:obj2];
+                if (r != NSOrderedSame) {
+                    return r;
+                }
             }
-        }
-        return NSOrderedAscending;
-    };
-    [_visibleData sortUsingComparator:comparetor];
+            return NSOrderedAscending;
+        };
+        [_visibleData sortUsingComparator:comparetor];
+    }else{
+        // if has no descriptor, try to restore original order from actual data
+        NSMutableIndexSet *is = [NSMutableIndexSet indexSet];
+        [_actualData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([_visibleData containsObject:obj]) {
+                [is addIndex:idx];
+            }
+        }];
+        NSArray *arr = [_actualData objectsAtIndexes:is];
+        [_visibleData removeAllObjects];
+        [_visibleData addObjectsFromArray:arr];
+    }
     [self _notifySortChange];
     [self _notifyDidChangeContent];
 }
@@ -430,30 +456,52 @@
 {
     if (sortDescriptors != _sortDescriptors) {
         _sortDescriptors = sortDescriptors;
-        // perform sort
+        // perform sort only if descriptors exists
         [self sort];
     }
 }
 
 #pragma mark - Filtering Objects
 
+- (void)filterObjectsInArray:(NSArray*)array
+{
+    [self _notifyWillChangeContent];
+    for (id obj in array) {
+        NSUInteger idx = [_visibleData indexOfObject:obj];
+        if (idx != NSNotFound) {
+            [_visibleData removeObject:obj];
+            [_filterdObjects addObject:obj];
+            [self _notifyChangeOfObject:obj atIndex:idx forReason:DIACollectionMutationReasonFiltered newIndex:DIACollectionNilIndex];
+        }
+    }
+    [self _notifyDidChangeContent];
+}
+
 - (void)setFilterPredicates:(NSArray *)filterPredicates
 {
     if (filterPredicates != _filterPredicates) {
+        // merge with actual data
         [_visibleData unionOrderedSet:_actualData];
+        // remove hidden objects
         [_visibleData minusOrderedSet:_hiddenObjects];
-        BOOL (^shouldFilter)(id) = ^(id obj){
-            for (NSPredicate *p in filterPredicates) {
-                if ([p evaluateWithObject:obj]) {
-                    return YES;
+        // clear filter objects store
+        [_filterdObjects removeAllObjects];
+        // evaluate only if preicates exsists
+        if (filterPredicates) {
+            BOOL (^shouldFilter)(id) = ^(id obj){
+                for (NSPredicate *p in filterPredicates) {
+                    if ([p evaluateWithObject:obj]) {
+                        return YES;
+                    }
                 }
-            }
-            return NO;
-        };
-        NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return shouldFilter(obj);
-        }];
-        [self removeObjectsAtIndexes:is];
+                return NO;
+            };
+            NSIndexSet *is = [_visibleData indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                return !shouldFilter(obj);
+            }];
+            NSArray *arr = [_visibleData objectsAtIndexes:is];
+            [self filterObjectsInArray:arr];
+        }
         _filterPredicates = filterPredicates;
     }
 }

@@ -258,4 +258,63 @@ describe(@"-unHide", ^{
     });
 });
 
+describe(@"filter", ^{
+   beforeAll(^{
+       collection = [DIACollection collectionWithArray:array error:nil];
+   });
+    context(@"on adding filter predicates", ^{
+       it(@"should filter objets that match", ^{
+           NSPredicate *odds = [NSPredicate predicateWithBlock:^BOOL(NSNumber *evaluatedObject, NSDictionary *bindings) {
+               return (evaluatedObject.unsignedIntegerValue%2 == 0);
+           }];
+           // 0,1,2,3,4 => 0,2,4
+           [collection setFilterPredicates:@[odds]];
+           [[theValue(collection.count) should] equal:theValue(3)];
+           [[theValue(collection.filteredOrderedSet.count) should] equal:theValue(2)];
+           for(NSNumber *n in collection){
+               [[theValue(n.unsignedIntegerValue%2 == 0) should] beTrue];
+           }
+       });
+    });
+    context(@"on remove filter predicates", ^{
+       it(@"should restore contents", ^{
+           [collection setFilterPredicates:nil];
+           // 0,2,4 => 0,1,2,3,4
+           [[theValue(collection.count) should] equal:theValue(5)];
+           [[theValue(collection.filteredOrderedSet.count) should] equal:theValue(0)];
+       });
+    });
+});
+
+describe(@"sort", ^{
+    beforeAll(^{
+       collection = [DIACollection collectionWithArray:array error:nil];
+    });
+    context(@"on adding sort descriptors", ^{
+       it(@"should change inner sort", ^{
+           // 0,1,2,3,4 => 4,3,2,1,0
+           NSSortDescriptor *s = [NSSortDescriptor sortDescriptorWithKey:@"unsignedIntegerValue" ascending:NO];
+           [[theBlock(^{
+               [collection setSortDescriptors:@[s]];
+           }) shouldNot] raise];
+           [[[collection firstObject] should] equal:@4];
+           [[[collection lastObject] should] equal:@0];
+       });
+    });
+    context(@"on remove sort descriptors", ^{
+        it(@"should restore original sort", ^{
+            [[theBlock(^{
+                [collection setSortDescriptors:nil];
+            }) shouldNot] raise];
+            NSOrderedSet *os = [NSOrderedSet orderedSetWithArray:array];
+            [[[collection firstObject] should] equal:@0];
+            [[[collection lastObject] should] equal:@4];
+            [[theValue([collection isEqualToOrderedSet:os]) should] beTrue];
+        });
+    });
+    context(@"on addOject", ^{
+        
+    });
+});
+
 SPEC_END

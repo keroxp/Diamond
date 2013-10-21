@@ -21,7 +21,6 @@
 		A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4701180BFD3F00C59C32 /* InfoPlist.strings */; };
 		A6BE4712180BFD3F00C59C32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4703180BFD3F00C59C32 /* Images.xcassets */; };
 		A6BE4713180BFD3F00C59C32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4704180BFD3F00C59C32 /* main.m */; };
-		A6BE4717180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */; };
 		A6BE471D180BFD9A00C59C32 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6CD5E901809683300D4F6AD /* Foundation.framework */; };
 		A6BE4722180BFD9A00C59C32 /* Diamond.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE4721180BFD9A00C59C32 /* Diamond.h */; };
 		A6BE474E180C00A900C59C32 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
@@ -115,8 +114,6 @@
 /* Begin PBXFileReference section */
 		231CF00E180E69E0001A5003 /* DiamondTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiamondTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		231CF00F180E69E0001A5003 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		23F11C3B180E6D6A0066DFE3 /* DiamondTestOC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DiamondTestOC-Info.plist"; sourceTree = "<group>"; };
-		23F11C3C180E6D6A0066DFE3 /* DiamondTestOC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DiamondTestOC-Prefix.pch"; sourceTree = "<group>"; };
 		A6544A1918117A13002EB045 /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = Kiwi/Kiwi.xcodeproj; sourceTree = "<group>"; };
 		A67797E9180C2508001BB0E9 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		A67797EB180C2508001BB0E9 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -153,7 +150,6 @@
 		A6BE4704180BFD3F00C59C32 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADelegateChainSpec.m; sourceTree = "<group>"; };
 		A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIACollectionSpec.m; sourceTree = "<group>"; };
-		A6BE470A180BFD3F00C59C32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A6BE471C180BFD9A00C59C32 /* libDiamond.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDiamond.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BE4720180BFD9A00C59C32 /* Diamond-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Diamond-Prefix.pch"; sourceTree = "<group>"; };
 		A6BE4721180BFD9A00C59C32 /* Diamond.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diamond.h; sourceTree = "<group>"; };
@@ -203,16 +199,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23F11C3D180E6D6F0066DFE3 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				23F11C3B180E6D6A0066DFE3 /* DiamondTestOC-Info.plist */,
-				23F11C3C180E6D6A0066DFE3 /* DiamondTestOC-Prefix.pch */,
-				A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		A6544A1A18117A13002EB045 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,7 +301,6 @@
 		A6BE4705180BFD3F00C59C32 /* DiamondTests */ = {
 			isa = PBXGroup;
 			children = (
-				23F11C3D180E6D6F0066DFE3 /* Supporting Files */,
 				A6BE4706180BFD3F00C59C32 /* DIADelegateChainSpec.m */,
 				A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */,
 				A6BE4731180BFD9A00C59C32 /* Supporting Files */,
@@ -581,7 +566,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6BE4759180C01E500C59C32 /* Main.storyboard in Resources */,
-				A6BE4717180BFD3F00C59C32 /* InfoPlist.strings in Resources */,
 				A6BE4712180BFD3F00C59C32 /* Images.xcassets in Resources */,
 				A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */,
 			);
@@ -668,14 +652,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				A6BE4702180BFD3F00C59C32 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		A6BE4709180BFD3F00C59C32 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6BE470A180BFD3F00C59C32 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
