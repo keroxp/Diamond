@@ -72,13 +72,6 @@
 			remoteGlobalIDString = A6BE471B180BFD9A00C59C32;
 			remoteInfo = Diamond;
 		};
-		A61288CC181639C00081908F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A6CD5E851809683300D4F6AD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A6BE471B180BFD9A00C59C32;
-			remoteInfo = Diamond;
-		};
 		A6544A2218117A13002EB045 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A6544A1918117A13002EB045 /* Kiwi.xcodeproj */;
@@ -120,6 +113,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F5015B9E11583A77002E9A98;
 			remoteInfo = Kiwi;
+		};
+		A668CFC618166776004B29BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6CD5E851809683300D4F6AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A61288B91816366B0081908F;
+			remoteInfo = "Diamond-iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -506,7 +506,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				A61288CD181639C00081908F /* PBXTargetDependency */,
+				A668CFC718166776004B29BF /* PBXTargetDependency */,
 			);
 			name = DiamondExample;
 			productName = DiamondCollection;
@@ -715,15 +715,15 @@
 			target = A6BE471B180BFD9A00C59C32 /* Diamond */;
 			targetProxy = 231CF022180E69E7001A5003 /* PBXContainerItemProxy */;
 		};
-		A61288CD181639C00081908F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A6BE471B180BFD9A00C59C32 /* Diamond */;
-			targetProxy = A61288CC181639C00081908F /* PBXContainerItemProxy */;
-		};
 		A6544A2D18117A7E002EB045 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Kiwi;
 			targetProxy = A6544A2C18117A7E002EB045 /* PBXContainerItemProxy */;
+		};
+		A668CFC718166776004B29BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A61288B91816366B0081908F /* Diamond-iOS */;
+			targetProxy = A668CFC618166776004B29BF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1348,6 +1348,7 @@
 				A61288BE1816366B0081908F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A6BE4738180BFD9A00C59C32 /* Build configuration list for PBXNativeTarget "Diamond" */ = {
 			isa = XCConfigurationList;
