@@ -13,6 +13,7 @@ xcuserdata
 
 # Build products
 build/
+output/
 *.o
 *.LinkFileList
 *.hmap

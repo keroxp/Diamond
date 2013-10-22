@@ -1,6 +1,7 @@
 PROJECT = Diamond.xcodeproj
 BUILD_TARGET = Diamond
 EXAMPLE_TARGET = DiamondExpample
+iOSUNIVERSAL = Diamond-iOS
 
 default: clean setup test-with-coverage
 
@@ -24,3 +25,8 @@ test-with-coverage:
 send-coverage:
 	coveralls \
 		 -e DiamondTests,DiamondExpample
+
+ios-universal:
+	xctool \
+		-project $(PROJECT) \
+		-scheme $(iOSUNIVERSAL) \

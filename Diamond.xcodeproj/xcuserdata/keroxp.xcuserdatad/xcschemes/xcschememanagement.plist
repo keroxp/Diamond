@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Diamond-iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Diamond.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>231CF00D180E69E0001A5003</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A61288B91816366B0081908F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -40,7 +40,12 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"pokedex" ofType:@"json"];
     NSString *json = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSArray *a = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    _collection = [DIACollection collectionWithArray:a error:nil];
+    _collection = [DIACollection new];
+    for (NSDictionary *d in a) {
+        Pokemon *p = [[Pokemon alloc] initWithDictionary:d];
+        [_collection addObject:p];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
