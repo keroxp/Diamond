@@ -10,6 +10,6 @@
 #import <Diamond.h>
 
 @interface DIAMainViewController : UITableViewController
-<DIACollectionMutationDelegate>
+<DIACollectionMutationDelegate,UISearchDisplayDelegate>
 
 @end

@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
     DIACollectionMutationReasonAdd = 100,
     DIACollectionMutationReasonPush,
     DIACollectionMutationReasonInsert,
+    DIACollectionMutationReasonUnFiltered,
     DIACollectionMutationReasonUnHidden,
     DIACollectionMutationReasonRemove = 200,
     DIACollectionMutationReasonFiltered,

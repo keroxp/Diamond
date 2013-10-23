@@ -12,6 +12,7 @@
 @interface DIAMainViewController ()
 {
     DIACollection *_collection;
+    NSMutableArray *indexPaths;
 }
 
 @end
@@ -25,6 +26,9 @@
         // Custom initialization
     }
     return self;
+}
+- (IBAction)onSegmentChange:(id)sender {
+    
 }
 
 - (void)viewDidLoad
@@ -45,7 +49,7 @@
         Pokemon *p = [[Pokemon alloc] initWithDictionary:d];
         [_collection addObject:p];
     }
-    
+    [_collection addDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +75,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
     
     Pokemon *p = [_collection objectAtIndex:indexPath.row];
     cell.textLabel.text = p.name;
@@ -84,24 +91,42 @@
 
 #pragma mark - 
 
+- (UITableView*)activeTableView
+{
+    return (self.searchDisplayController.isActive) ? self.searchDisplayController.searchResultsTableView : self.tableView;
+}
+
 - (void)collectionWillChangeContent:(DIACollection *)collection
 {
-    
+    [self.activeTableView beginUpdates];
 }
 
 - (void)collection:(DIACollection *)collection didChangeObject:(id)object atIndex:(NSUInteger)index forChangeType:(DIACollectionMutationType)type reason:(DIACollectionMutationReason)reason newIndex:(NSUInteger)newIndex
 {
-    
+    switch (type) {
+        case DIACollectionMutationTypeDelete:{
+            NSIndexPath *ip = [NSIndexPath indexPathWithIndex:index];
+            [self.activeTableView deleteRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        case DIACollectionMutationTypeInsert:{
+            NSIndexPath *ip = [NSIndexPath indexPathWithIndex:newIndex];
+            [self.activeTableView insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)collection:(DIACollection *)collection didChangeSortWithSortDescriptros:(NSArray *)sortDescriptors
 {
-    
+    [self.activeTableView reloadData];
 }
 
 - (void)collectioDidChangeContent:(DIACollection *)collection
 {
-    
+    [self.activeTableView endUpdates];
 }
 
 
@@ -155,5 +180,60 @@
 }
 
  */
+
+- (BOOL)filterWithSearchString:(NSString*)searchString scopeIndex:(NSUInteger)scopeIndex
+{
+    if (searchString.length > 0) {
+        NSPredicate *p = nil;
+        switch (scopeIndex) {
+            case 0:{
+                // name
+                p = [NSPredicate predicateWithFormat:@"name CONTAINS %@",searchString];
+                break;
+            }
+            case 1: {
+                // types
+                p = [NSPredicate predicateWithBlock:^BOOL(Pokemon *evaluatedObject, NSDictionary *bindings) {
+                    if ([[evaluatedObject.types componentsJoinedByString:@""] rangeOfString:searchString].location != NSNotFound) {
+                        return YES;
+                    }
+                    return NO;
+                }];
+                break;
+            }
+            case 2: {
+                p = [NSPredicate predicateWithBlock:^BOOL(Pokemon *evaluatedObject, NSDictionary *bindings) {
+                    if ([[evaluatedObject.abilities componentsJoinedByString:@""] rangeOfString:searchString].location != NSNotFound) {
+                        return YES;
+                    }
+                    return NO;
+                }];
+                break;
+            }
+            default:
+                break;
+        }
+        [_collection setFilterPredicates:@[p]];
+    }else{
+        [_collection setFilterPredicates:nil];
+    }
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    return [self filterWithSearchString:controller.searchBar.text scopeIndex:searchOption];
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    return [self filterWithSearchString:searchString scopeIndex:controller.searchBar.selectedScopeButtonIndex];
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    [_collection setFilterPredicates:nil];
+}
+
 
 @end

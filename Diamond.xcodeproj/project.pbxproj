@@ -30,7 +30,6 @@
 		231CF025180E69F2001A5003 /* DIACollectionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE4707180BFD3F00C59C32 /* DIACollectionSpec.m */; };
 		231CF026180E6BB1001A5003 /* libDiamond.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6BE471C180BFD9A00C59C32 /* libDiamond.a */; };
 		A61288B3181636240081908F /* DIACollection.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE46F4180BFD3F00C59C32 /* DIACollection.h */; };
-		A61288B4181636240081908F /* DIADataSourceCollection.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; };
 		A61288B5181636240081908F /* DIACollection+NSKeyValueCoding.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */; };
 		A61288B6181636240081908F /* DIACollection+NSKeyValueObserving.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */; };
 		A61288B7181636240081908F /* DIACollection+NSOrderedSet.h in Copy Files */ = {isa = PBXBuildFile; fileRef = A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */; };
@@ -41,8 +40,6 @@
 		A67842091815709D003C4954 /* DIAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A67842081815709D003C4954 /* DIAMainViewController.m */; };
 		A678420D181570F9003C4954 /* pokedex.json in Resources */ = {isa = PBXBuildFile; fileRef = A678420A181570F9003C4954 /* pokedex.json */; };
 		A678420E181570F9003C4954 /* Pokemon.m in Sources */ = {isa = PBXBuildFile; fileRef = A678420C181570F9003C4954 /* Pokemon.m */; };
-		A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */; };
-		A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */; };
 		A6BE470E180BFD3F00C59C32 /* DIAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A6BE46FC180BFD3F00C59C32 /* DIAAppDelegate.m */; };
 		A6BE4711180BFD3F00C59C32 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4701180BFD3F00C59C32 /* InfoPlist.strings */; };
 		A6BE4712180BFD3F00C59C32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6BE4703180BFD3F00C59C32 /* Images.xcassets */; };
@@ -131,7 +128,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				A61288B3181636240081908F /* DIACollection.h in Copy Files */,
-				A61288B4181636240081908F /* DIADataSourceCollection.h in Copy Files */,
 				A61288B5181636240081908F /* DIACollection+NSKeyValueCoding.h in Copy Files */,
 				A61288B6181636240081908F /* DIACollection+NSKeyValueObserving.h in Copy Files */,
 				A61288B7181636240081908F /* DIACollection+NSOrderedSet.h in Copy Files */,
@@ -170,8 +166,6 @@
 		A678420A181570F9003C4954 /* pokedex.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pokedex.json; sourceTree = "<group>"; };
 		A678420B181570F9003C4954 /* Pokemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pokemon.h; sourceTree = "<group>"; };
 		A678420C181570F9003C4954 /* Pokemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pokemon.m; sourceTree = "<group>"; };
-		A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIADataSourceCollection.h; sourceTree = "<group>"; };
-		A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIADataSourceCollection.m; sourceTree = "<group>"; };
 		A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueCoding.h"; sourceTree = "<group>"; };
 		A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSKeyValueObserving.h"; sourceTree = "<group>"; };
 		A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DIACollection+NSOrderedSet.h"; sourceTree = "<group>"; };
@@ -382,7 +376,6 @@
 			children = (
 				A6BE4721180BFD9A00C59C32 /* Diamond.h */,
 				A6BE46F4180BFD3F00C59C32 /* DIACollection.h */,
-				A6B7EC4F180D743000F7BC9D /* DIADataSourceCollection.h */,
 				A6BE46F1180BFD3F00C59C32 /* DIACollection+NSKeyValueCoding.h */,
 				A6BE46F2180BFD3F00C59C32 /* DIACollection+NSKeyValueObserving.h */,
 				A6BE46F3180BFD3F00C59C32 /* DIACollection+NSOrderedSet.h */,
@@ -395,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				A6BE46F5180BFD3F00C59C32 /* DIACollection.m */,
-				A6B7EC50180D743000F7BC9D /* DIADataSourceCollection.m */,
 				A6BE46F7180BFD3F00C59C32 /* DIADelegateChain.m */,
 			);
 			name = Implementaions;
@@ -449,7 +441,6 @@
 				A6BE4755180C011300C59C32 /* DIACollection+NSKeyValueCoding.h in Headers */,
 				A6BE4756180C011300C59C32 /* DIACollection+NSKeyValueObserving.h in Headers */,
 				A6BE4757180C011300C59C32 /* DIACollection+NSOrderedSet.h in Headers */,
-				A6B7EC51180D743000F7BC9D /* DIADataSourceCollection.h in Headers */,
 				A6BE4758180C011300C59C32 /* DIADelegateChain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,7 +683,6 @@
 			files = (
 				A6BE474F180C00B600C59C32 /* DIACollection.m in Sources */,
 				A6BE4750180C00B600C59C32 /* DIADelegateChain.m in Sources */,
-				A6B7EC52180D743000F7BC9D /* DIADataSourceCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
